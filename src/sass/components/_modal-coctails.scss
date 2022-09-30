@@ -76,8 +76,8 @@
     & {
             cursor: pointer;
             position: absolute;
-            top: 20px;
-            left: 10px;
+            top: 12px;
+            left: 12px;
         }
     
         &:before,
@@ -86,7 +86,7 @@
             position: absolute;
             width: 24px;
             height: 1px;
-            background: black;
+            background: rgb(26, 25, 25);
         }
     
         &:before {
@@ -96,7 +96,17 @@
         &:after {
             transform: rotate(-45deg);
         }
+        &:hover {
+            
+            background: rgb(255, 255, 255);
+            border-radius: 50%;
+            background-color: #fe7031;
+            // transition-duration: 350ms;
+            // transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
 }
+
+
 
 .cocktail__name {
     font-family: 'Roboto';
