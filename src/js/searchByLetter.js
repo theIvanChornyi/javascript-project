@@ -200,7 +200,8 @@ function onInput(event) {
     titleRef.textContent = 'Searching results';
     wrireRemovetCoctaileFunction('[data-cocktaileId]');
     openCoctaileInfoModal('[data-moreId]');
-  } catch (error) {}
+  } catch (error) 
+  {console.log(error)}
 
 
 function sorryText() {
