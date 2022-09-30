@@ -185,6 +185,13 @@
 
 }
 
+.recipe__wrapper {
+    @media (min-width: 768px) {
+    
+            position: absolute;
+        }
+    
+}
 .cocktail__text {
     font-family: 'Poppins';
     font-style: normal;
@@ -213,13 +220,17 @@
     text-align: center;
     @media (min-width: 768px) {
             position: absolute;
-            bottom: 25px;
+            bottom: 26px;
             right: 28px;
         }
         transition-property: #FD5103;
         transition-duration: 250ms;
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        
+      @media (min-width: 768px) {
+            position: absolute;
+            bottom: 25px;
+            right: 28px;
+        }   
 }
 .modal__btn:hover {
     color: #FD5103;
@@ -236,7 +247,7 @@
 .cocktail__modal-btn {
 
     @media (min-width: 768px) {
-        justify-content: flex-end;
+        // justify-content: flex-end;
         margin-bottom: 28px;
         margin-right: 28px;
         display: flex;
