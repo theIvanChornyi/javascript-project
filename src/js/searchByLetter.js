@@ -33,7 +33,8 @@ export default class CocktailAPI {
   }
 }
 
-//  ====>> by Letter
+// by Letter
+
 
 async function getCocktailByLetter(letter) {
   try {
@@ -52,14 +53,32 @@ console.log(BASE_URL);
 
 const keyboardItemEl = document.querySelector('[data-action="keyboard"]');
 const titleRef = document.querySelector('.gallery__title');
+const sorryCardEl = document.querySelector('.sorry-card');
+
 let letter = '';
 
 keyboardItemEl.addEventListener('click', onLetterClick);
 
 function onLetterClick(event) {
+
+    event.preventDefault();
+    console.dir (event)
+
+    letter = (event.target.dataset.id);
+    let pickedItem = event.target;
+    // if (pickedItem.style.color='#5f6775') {
+	// 	pickedItem.style.color='#202025';
+	// }
+    // console.log (letter)
+    // pickedItem.classList.add('keyboard--item---black')
+    // pickedItem.style.color = '#202025';
+   
+    cocktailData(letter);
+
   event.preventDefault();
 
   letter = event.target.dataset.id;
+
 
   console.log(letter);
   // letter.classList.add('keyboard--item--black')
@@ -67,14 +86,19 @@ function onLetterClick(event) {
 }
 
 async function cocktailMarkupList(arr) {
+
   return arr.map(({ strDrinkThumb, strDrink, idDrink }) => {
     const markup = `<li class='gallery__card'>
+
      <img src=${strDrinkThumb} alt=${strDrink} class='gallery__card-img'>
      <div class='gallery__card_thumb'>
      <h3 class='gallery__card-name'>${strDrink}</h3>
      <div class='btn__box'>
+
+    
      <button type='button' class='gallery__btn-load-more' data-open='open-modal-description' data-moreId='${idDrink}'>Learn more</button>
       <button type='button' class='gallery__btn-add-to-fav' data-add='add-to-fav' data-cocktaileId='${idDrink}'>Add to</button>
+
       </div>
      </div>
      </li>`;
@@ -114,6 +138,58 @@ async function cocktailData(letter) {
       );
       throw new Error(response);
     }
+
+
+    try {
+        titleRef.classList.remove('visually-hidden');
+        sorryCardEl.classList.add('visually-hidden');
+        const data = await getCocktailByLetter(letter);
+
+         if (!data?.drinks) {
+        
+             removeMarkup(cocktailsList);
+             titleRef.classList.add('visually-hidden');
+             sorryText()
+            Notiflix.Notify.failure('Unfortunately, such a cocktail is not available.');
+              throw new Error(response);
+        }
+      
+        const markupDrink = await drinksLetterCocktail(data.drinks);
+        console.log(markupDrink)
+     
+        const drinkU = await cocktailMarkupList(markupDrink);
+
+        cocktailsList.innerHTML = await drinkU.join('');
+        titleRef.textContent = 'Searching results';
+
+        } catch (error) {
+         
+        };
+    };
+
+function sorryText() {
+    removeMarkup(cocktailsList);
+    sorryCardEl.classList.remove('visually-hidden');
+}
+
+function removeMarkup(element) {
+    element.innerHTML = '';
+};
+
+    // CUSTOM KEYBOARD  
+
+
+const customKeyboard = document.querySelector('.custom-select');
+
+customKeyboard.addEventListener('input', onInput);
+
+function onInput(event) {
+    event.preventDefault();
+    console.dir(event.target.title);
+    letter = (event.target.title);
+   
+    cocktailData(letter);
+}
 
     const markupDrink = await drinksLetterCocktail(data.drinks);
     console.log(markupDrink);
