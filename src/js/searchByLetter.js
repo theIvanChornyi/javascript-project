@@ -204,25 +204,25 @@ function onInput(event) {
   {console.log(error)}
 
 
-function sorryText() {
-  const markup = `
-    <picture>
+// function sorryText() {
+//   const markup = `
+//     <picture>
 
-        <source srcset="./img/pictures/desktop/empty_page_345x380.png" media="(min-width:1280px)" />
-        <source srcset="./img/pictures/desktop/empty_page_690x760@2x.png" media="(min-width:1280px)" />
+//         <source srcset="./img/pictures/desktop/empty_page_345x380.png" media="(min-width:1280px)" />
+//         <source srcset="./img/pictures/desktop/empty_page_690x760@2x.png" media="(min-width:1280px)" />
             
-        <source srcset="./img/pictures/tablet/empty_page_345x381.png" media="(min-width:768px)" />
-        <source srcset="./img/pictures/tablet/empty_page_690x762@2x.png" media="(min-width:768px)" />
+//         <source srcset="./img/pictures/tablet/empty_page_345x381.png" media="(min-width:768px)" />
+//         <source srcset="./img/pictures/tablet/empty_page_690x762@2x.png" media="(min-width:768px)" />
             
-        <source srcset="./img/pictures/mobile/empty_page_280x308.png" media="(min-width:480px)" />
-        <source srcset="./img/pictures/mobile/empty_page_560x617@2x.png" media="(min-width:480px)" />
+//         <source srcset="./img/pictures/mobile/empty_page_280x308.png" media="(min-width:480px)" />
+//         <source srcset="./img/pictures/mobile/empty_page_560x617@2x.png" media="(min-width:480px)" />
             
-    <img class="sorry__card" src="./img/pictures/desktop/empty_page_345x380.png" alt="Apologise card" />
-    </picture>
-    `;
+//     <img class="sorry__card" src="./img/pictures/desktop/empty_page_345x380.png" alt="Apologise card" />
+//     </picture>
+//     `;
 
-  cocktailsList.innerHTML = markup;
-}
+//   cocktailsList.innerHTML = markup;
+// }
 
 function removeMarkup(element) {
   element.innerHTML = '';
