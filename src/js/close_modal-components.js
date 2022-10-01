@@ -84,7 +84,7 @@ async function marcup({ idIngredient, strIngredient, strDescription, strType, st
   </div>
         <div class="cocktail__modal-btn">
         <button type="button" class="description__favoriteBt modal__btnJS" data-cocktaileid='${idIngredient}'>Add to favorite</button>
-      </div>`;ß
+      </div>`;
   
 };
 
