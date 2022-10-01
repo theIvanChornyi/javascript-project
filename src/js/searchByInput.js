@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { mobilMenuRef } from './header';
+import { sorryText } from './searchByLetter';
 
 import {
   createCardMarkup,
@@ -10,6 +11,7 @@ import {
 const desktopFormRef = document.querySelector('.js-form-desktop');
 const mobilFormRef = document.querySelector('.js-form-mobil');
 const titleRef = document.querySelector('.gallery__title');
+const apologiRef = document.querySelector('.sorry-card');
 
 desktopFormRef.addEventListener('submit', onFormSubmit);
 mobilFormRef.addEventListener('submit', onFormSubmit);
@@ -40,14 +42,22 @@ function fetchCockteilByName(name) {
   );
   cocteils.then(resp => {
     const drinks = resp.data.drinks;
-    console.log(drinks);
     if (!drinks) {
-      titleRef.textContent = "Sorry, we didn't find any cocktail for you";
+      apologShown();
     } else {
-      titleRef.textContent = 'Searching results';
+      apologNotShown();
       drinks.map(drink => createCardMarkup(drink));
     }
   });
 
   return cocteils;
+}
+function apologNotShown() {
+  titleRef.classList.remove('visually-hidden');
+  apologiRef.classList.add('visually-hidden');
+  titleRef.textContent = 'Searching results';
+}
+function apologShown() {
+  titleRef.classList.add('visually-hidden');
+  apologiRef.classList.remove('visually-hidden');
 }
