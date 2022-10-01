@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { removeUserCoctaile } from '../servise/firebase';
+import { removeUserCoctaile, auth } from '../servise/firebase';
 import { openCoctaileInfoModal } from './modal-coctails';
 
 const favCoctailesList = document.querySelector('.favorite__coctails');
@@ -8,7 +8,9 @@ export async function parseFavCoctails(array) {
   const getCocktailesData = await array.map(id =>
     axios(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
   );
+
   const response = await Promise.all(getCocktailesData);
+
   if (response.length > 0) {
     const responseData = response.map(obj => obj.data.drinks[0]);
     const htmlStringMarkup = responseData
