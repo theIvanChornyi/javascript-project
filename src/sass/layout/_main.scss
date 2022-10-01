@@ -276,7 +276,7 @@
 }
 
 .preloader__image {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 61%;
   // transform: translateX(-50%);
