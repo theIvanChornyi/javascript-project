@@ -20,7 +20,7 @@ export async function parseFavIngridients(array) {
       .join('');
     if (favIngridientsList) {
       favIngridientsList.innerHTML = htmlStringMarkup;
-      //   removeFromFav();
+      removeFromFavIngr();
     }
     // openCoctaileInfoModal('.gallery__btn-load-more');
   }
@@ -28,28 +28,27 @@ export async function parseFavIngridients(array) {
 
 function getHtmlString({ strIngredient, strType }) {
   preloader?.classList.add('visually-hidden');
-  return ` <div class="f-ing_items">
+  return ` <li class="f-ing_items">
           <h3 class="f-ing_subtitle">${strIngredient}</h3>
           <p class="f-ing_text">${strType}</p>
           <div class="f-ing_btn">
             <button type="button" class="f-ing_btn-add"  data-ingridientname='${strIngredient}'>Learn More</button>
             <button type="button" class="f-ing_btn-rem" data-ingridientname='${strIngredient}'>Remove</button>
           </div>
-        </div>`;
+        </li>`;
 }
 
-function removeFromFav() {
-  const favoriteBtn = document.querySelectorAll('[data-cocktaileId]');
+function removeFromFavIngr() {
+  const favoriteBtn = document.querySelectorAll('[data-ingridientname]');
   favoriteBtn.forEach(btn =>
     btn.addEventListener(
       'click',
       e => {
-        const cocktaileid = e.target.dataset.cocktaileid;
-        const card = e.target.closest('.gallery__card');
+        const ingridientName = e.target.dataset.ingridientname;
+        const card = e.target.closest('.f-ing_items');
         card.remove();
         onAuthStateChanged(auth, user => {
-          console.log('user.uid', user.uid);
-          removeUserIngridients(user.uid, cocktaileid);
+          removeUserIngridients(user.uid, ingridientName);
         });
       },
       {
