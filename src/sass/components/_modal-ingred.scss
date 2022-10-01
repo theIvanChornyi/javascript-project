@@ -20,6 +20,7 @@
   @media screen and (min-width: 768px) {
     width: 715px;
     padding: 28px;
+    min-height: 557px;
   }
 
   @media screen and (min-width: 1280px) {
@@ -144,7 +145,7 @@
   color: #202025;
 }
 
-.description__favorite {
+.description__favoriteBt {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
@@ -157,12 +158,17 @@
   border-radius: 4px;
   width: 248px;
   height: 48px;
-  margin-top: 32px;
-  margin-bottom: 40px;
+  // margin-top: 32px;
+  // margin-bottom: 40px;
 
   @media screen and (min-width: 768px) {
-    transform: translateX(100%);
-    right: 0px;
+    // transform: translateX(150%);
+    bottom: 28px;
+    position: absolute;
+    right: 28px;
+    transition-property: color;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -174,3 +180,9 @@
 .button {
   border-style: none;
 }
+
+// transition-property: #fd5103;
+// transition-duration: 250ms;
+// transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+
