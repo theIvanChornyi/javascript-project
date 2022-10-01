@@ -39,10 +39,8 @@ export const quitAcc = () => {
 };
 
 onAuthStateChanged(auth, user => {
-  console.log('user.uid', user.uid);
-  onValue(ref(database, user.uid + '/coctailes'), snapshot => {
+  onValue(ref(database, user?.uid + '/coctailes'), snapshot => {
     const data = snapshot.val();
-    console.log('data', data);
     if (data) {
       const favoriteCoctailesRawArr = Object.values(data);
       const favoriteCoctailesArr = favoriteCoctailesRawArr.map(

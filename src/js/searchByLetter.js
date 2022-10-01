@@ -38,16 +38,13 @@ async function getCocktailByLetter(letter) {
     Notiflix.Notify.failure('Ooops, error!');
   }
 }
-
-console.log(BASE_URL);
-
 const keyboardItemEl = document.querySelector('[data-action="keyboard"]');
 const titleRef = document.querySelector('.gallery__title');
 const sorryCardEl = document.querySelector('.sorry-card');
 
 let letter = '';
 
-keyboardItemEl.addEventListener('click', onLetterClick);
+keyboardItemEl?.addEventListener('click', onLetterClick);
 
 function onLetterClick(event) {
   event.preventDefault();
@@ -109,7 +106,7 @@ async function cocktailData(letter) {
       console.log(data);
 
       removeMarkup(cocktailsList);
-      titleRef.textContent = "Sorry, we didn't find any cocktail for you";
+      titleRef.classList.add('visually-hidden');
       sorryText();
       Notiflix.Notify.failure(
         'Unfortunately, such a cocktail is not available.'
@@ -152,7 +149,7 @@ function sorryText() {
 
 const customKeyboard = document.querySelector('.custom-select');
 
-customKeyboard.addEventListener('input', onInput);
+customKeyboard?.addEventListener('input', onInput);
 
 async function onInput(event) {
   event.preventDefault();
@@ -168,6 +165,7 @@ async function onInput(event) {
 
   cocktailsList.innerHTML = await drinkU.join('');
   titleRef.textContent = 'Searching results';
+  sorryCardEl.classList.add('visually-hidden');
   wrireRemovetCoctaileFunction('[data-cocktaileId]');
   openCoctaileInfoModal('[data-moreId]');
 }
