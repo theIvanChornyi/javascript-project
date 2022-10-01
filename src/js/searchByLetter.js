@@ -38,16 +38,13 @@ async function getCocktailByLetter(letter) {
     Notiflix.Notify.failure('Ooops, error!');
   }
 }
-
-console.log(BASE_URL);
-
 const keyboardItemEl = document.querySelector('[data-action="keyboard"]');
 const titleRef = document.querySelector('.gallery__title');
 const sorryCardEl = document.querySelector('.sorry-card');
 
 let letter = '';
 
-keyboardItemEl.addEventListener('click', onLetterClick);
+keyboardItemEl?.addEventListener('click', onLetterClick);
 
 function onLetterClick(event) {
   event.preventDefault();
@@ -152,7 +149,7 @@ function sorryText() {
 
 const customKeyboard = document.querySelector('.custom-select');
 
-customKeyboard.addEventListener('input', onInput);
+customKeyboard?.addEventListener('input', onInput);
 
 async function onInput(event) {
   event.preventDefault();

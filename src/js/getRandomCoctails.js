@@ -5,6 +5,7 @@ import { openCoctaileInfoModal } from './modal-coctails';
 
 export const cocktailsList = document.querySelector('.gallery__cards');
 export const preloader = document.querySelector('.preloader');
+export const preloaderFav = document.querySelector('.preloader-fav-coc');
 export const section = document.querySelector('.section-gallery');
 const width = document.documentElement.clientWidth;
 
@@ -46,8 +47,8 @@ function getUniqueObj() {
     createCardMarkup(data);
   });
 
-  console.log('rundomDrinks', randomDrinks);
-  console.log('unique', cocktailsUnique);
+  // console.log('rundomDrinks', randomDrinks);
+  // console.log('unique', cocktailsUnique);
 
   return cocktailsUnique;
 }
@@ -73,9 +74,10 @@ export function createCardMarkup({ strDrinkThumb, strDrink, idDrink }) {
      </div>
     </li>`;
 
-  cocktailsList.insertAdjacentHTML('beforeend', markup);
-  preloader.classList.add('visually-hidden');
-  section.classList.remove('gallery__helper');
+  cocktailsList?.insertAdjacentHTML('beforeend', markup);
+  preloader?.classList.add('visually-hidden');
+  preloaderFav?.classList.add('visually-hidden');
+  section?.classList.remove('gallery__helper');
   wrireRemovetCoctaileFunction('[data-cocktaileId]');
   openCoctaileInfoModal('[data-moreId]');
 }

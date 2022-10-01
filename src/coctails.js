@@ -9,7 +9,7 @@ async function addToFav(e) {
   const btn = e.target;
   const cockteileId = btn.dataset.cocktaileid;
   onAuthStateChanged(auth, user => {
-    writeUserCoctaile(user.uid, cockteileId, { cockteileId });
+    writeUserCoctaile(user?.uid, cockteileId, { cockteileId });
 
     if (btn.textContent === 'Add to favorite') {
       btn.textContent = 'Remove from favorite';
@@ -20,7 +20,7 @@ async function addToFav(e) {
     btn.addEventListener(
       'click',
       () => {
-        removeUserCoctaile(user.uid, cockteileId);
+        removeUserCoctaile(user?.uid, cockteileId);
         if (btn.textContent === 'Remove from favorite') {
           btn.textContent = 'Add to favorite';
         } else {
