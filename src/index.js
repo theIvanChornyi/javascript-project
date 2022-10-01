@@ -30,4 +30,4 @@ import './js/fav-coctails';
 import './js/fav-ingridients';
 
 import './js/btnUp';
-
+import 'animate.css';

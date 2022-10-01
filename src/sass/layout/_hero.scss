@@ -11,7 +11,6 @@
   @media screen and (min-width: 768px) {
     padding-top: 102px;
     padding-bottom: 164px;
-
   }
 
   @media screen and (min-width: 1280px) {
@@ -33,12 +32,11 @@
   @media screen and (min-width: 1280px) {
     padding-top: 67px;
   }
-
 }
 
 .hero__img {
-
   margin-bottom: 28px;
+  animation-duration: 1000ms; /* don't forget to set a duration! */
 
   @media screen and (min-width: 768px) {
     position: absolute;
@@ -64,7 +62,6 @@
 
   @media screen and (min-width: 480px) {
     width: 300px;
-
   }
 
   @media screen and (min-width: 768px) {
@@ -74,7 +71,6 @@
     line-height: 1.62;
     margin-bottom: 40px;
   }
-
 
   @media screen and (min-width: 1280px) {
     width: 688px;
@@ -98,7 +94,6 @@
 
   @media screen and (min-width: 480px) {
     width: 280px;
-
   }
 
   @media screen and (min-width: 768px) {
@@ -125,9 +120,7 @@
     @media screen and (min-width: 768px) {
       display: inline-block;
     }
-
   }
-
 
   .keyboard--item {
     @media screen and (min-width: 768px) {
@@ -141,10 +134,8 @@
       align-items: center;
       text-align: center;
 
-
-      color: #5F6775;
+      color: #5f6775;
       cursor: pointer;
-
     }
 
     @media screen and (min-width: 1280px) {
@@ -153,7 +144,6 @@
 
       font-weight: 700;
       font-size: 24px;
-
     }
 
     color: #5f6775;
@@ -163,7 +153,6 @@
     font-weight: 700;
     font-size: 24px;
   }
-
 }
 
 .keyboard--item:hover,
@@ -173,7 +162,6 @@
 
 .keyboard--item---black {
   color: #202025;
-
 }
 
 .first--line,
@@ -185,7 +173,6 @@
   justify-content: center;
   gap: 1px;
 }
-
 
 details {
   position: relative;
