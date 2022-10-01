@@ -1,16 +1,43 @@
 import axios from 'axios';
 
 const modalRef = document.querySelector('.description__backdrop');
-const closeRef = document.querySelector('.description__button__close');
 const markupRef = document.querySelector('.markup');
+const closeRef = document.querySelector('.description__button__close');
+const favoritBtRef = document.querySelector('.description__favoriteBt');
 
-closeRef.addEventListener('click', () => {
-  modalRef.classList.add('visually-hidden');
-});
+// closeRef.addEventListener('click', () => {
+//   modalRef.classList.add('visually-hidden');
+// });
+
+openModal();
+
+favoritBtRef.addEventListener('click', offFavoritBt);
+
+function offFavoritBt(e) {
+  // body.overflow: hidden;
+  favoritBtRef.innerHTML = `Remove from favorite`;
+  const removeFaforit = document.querySelector('description__button');
+  favoritBtRef.removeEventListener('click', offFavoritBt);
+  // removeFaforit.addEventListener('click', onFavoritBt);
+}
+
+function onFavoritBt(e) {
+  favoritBtRef.innerHTML = `Add to favorite`;
+  favoritBtRef.addEventListener('click', offFavoritBt);
+}
+
+function openModal(e) {
+  getIngridient();
+  closeRef.addEventListener('click', () => {
+    modalRef.classList.add('visually-hidden');
+  });
+  modalRef.addEventListener('click', closeBacdrop);
+  document.addEventListener('keydown', closeEsc);
+}
 
 async function getIngridient() {
   const request = await axios(
-    'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=vodka'
+    'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=cola'
   )
     .catch(function (error) {
       console.log(error);
@@ -20,13 +47,12 @@ async function getIngridient() {
     });
 }
 
-getIngridient();
-
 async function check(element) {
   const markupString = await marcup(element);
   console.log('1111', markupString);
   markupRef.innerHTML = markupString;
 }
+
 async function marcup(data) {
   console.log('data', data);
   return await data
@@ -56,6 +82,18 @@ async function marcup(data) {
       return htmlElem;
     })
     .join('');
+}
+
+function closeEsc(e) {
+  if (e.code === Escape) {
+    modalRef.classList.add('visually-hidden');
+  }
+}
+
+function closeBacdrop(e) {
+  if (e.currentTarget === e.target) {
+    modalRef.classList.add('visually-hidden');
+  }
 }
 
 {
