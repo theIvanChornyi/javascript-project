@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { removeUserIngridients, auth } from '../servise/firebase';
-// import { openCoctaileInfoModal } from './modal-coctails';
 import { onAuthStateChanged } from 'firebase/auth';
 
 const preloader = document.querySelector('.preloader-fav-coc');
