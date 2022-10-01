@@ -13,7 +13,7 @@ import { userIn } from '../js/authorization-button';
 import { parseFavCoctails } from '../js/fav-coctails';
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
+export const auth = getAuth();
 const provider = new GoogleAuthProvider();
 const database = getDatabase();
 
@@ -34,39 +34,35 @@ export const signUp = () => {
 
 export const quitAcc = () => {
   signOut(auth)
-    .then(() => {
-      // Sign-out successful.
-    })
-    .catch(error => {
-      // An error happened.
-    });
+    .then(() => {})
+    .catch(error => {});
 };
 
 onAuthStateChanged(auth, user => {
+  onValue(ref(database, user?.uid + '/coctailes'), snapshot => {
+    const data = snapshot.val();
+    if (data) {
+      const favoriteCoctailesRawArr = Object.values(data);
+      const favoriteCoctailesArr = favoriteCoctailesRawArr.map(
+        id => id.cockteileId
+      );
+      parseFavCoctails(favoriteCoctailesArr);
+    }
+  });
+
   userIn('enable');
   if (!user) {
     userIn('disable');
   }
 });
 
-export function writeUserCoctaile(userId, data = {}) {
-  set(ref(database, 'coctailes/' + userId), data);
+export function writeUserCoctaile(userId, cockteileId, data = {}) {
+  set(ref(database, `${userId}/coctailes/` + cockteileId), data);
 }
-export function removeUserCoctaile(userId, data = {}) {
-  remove(ref(database, 'coctailes/' + userId), data);
+export function removeUserCoctaile(userId, cockteileId, data = {}) {
+  remove(ref(database, `${userId}/coctailes/` + cockteileId), data);
 }
 
 export function writeUseringridients(data = {}) {
   set(ref(database, 'ingridients'), data);
 }
-onValue(ref(database, 'coctailes'), snapshot => {
-  const data = snapshot.val();
-  if (data) {
-    const favoriteCoctailesRawArr = Object.values(data);
-    // console.log(favoriteCoctailesRawArr);
-    const favoriteCoctailesArr = favoriteCoctailesRawArr.map(
-      id => id.cockteileId
-    );
-    parseFavCoctails(favoriteCoctailesArr);
-  }
-});
