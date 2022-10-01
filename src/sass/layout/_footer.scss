@@ -11,14 +11,17 @@
   background-color: #fd5103;
   padding: 15px;
 }
+
 .footer__text {
   text-align: center;
   color: #de4600;
 }
-.footer__text:hover + .footer__img {
+
+.footer__text:hover+.footer__img {
   opacity: 1;
   transform: translateY(-90px);
 }
+
 .footer__img {
   position: absolute;
   transform: translateY(-85px);

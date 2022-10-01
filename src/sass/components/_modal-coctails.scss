@@ -42,7 +42,7 @@
         height: 598px;
         padding-right: 32px;
     }
-}    
+}
 
 .image__wrap {
     // width: 280px;
@@ -63,7 +63,7 @@
 .btn--close {
     width: 40px;
     height: 40px;
-    background:transparent;
+    background: transparent;
     border: #0000;
     justify-content: center;
     align-items: center;
@@ -73,41 +73,31 @@
     position: absolute;
     top: 12px;
     right: 12px;
+
     & {
-            cursor: pointer;
-            position: absolute;
-            top: 12px;
-            left: 12px;
-        }
-    
-        &:before,
-        &:after {
-            content: "";
-            position: absolute;
-            width: 24px;
-            height: 1px;
-            background: rgb(26, 25, 25);
-        }
-    
-        &:before {
-            transform: rotate(45deg);
-        }
-    
-        &:after {
-            transform: rotate(-45deg);
-        }
-        &:hover {
-            
+        cursor: pointer;
+        position: absolute;
+        top: 20px;
+        left: 10px;
+    }
 
-            background: rgb(255, 255, 255);
-            border-radius: 50%;
-            background-color: #fe7031;
-            // transition-duration: 350ms;
-            // transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        width: 24px;
+        height: 1px;
+        background: black;
+    }
+
+    &:before {
+        transform: rotate(45deg);
+    }
+
+    &:after {
+        transform: rotate(-45deg);
+    }
 }
-
-
 
 .cocktail__name {
     font-family: 'Roboto';
@@ -150,7 +140,7 @@
     color: #202025;
 
     @media (min-width: 768px) {
-            
+
         margin-bottom: 24px;
     }
 }
@@ -185,13 +175,6 @@
 
 }
 
-.recipe__wrapper {
-    @media (min-width: 768px) {
-    
-            position: absolute;
-        }
-    
-}
 .cocktail__text {
     font-family: 'Poppins';
     font-style: normal;
@@ -218,25 +201,24 @@
     border: transparent;
     border-radius: 4px;
     text-align: center;
+
     @media (min-width: 768px) {
-            position: absolute;
-            bottom: 26px;
-            right: 28px;
-        }
-        transition-property: #FD5103;
-        transition-duration: 250ms;
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      @media (min-width: 768px) {
-            position: absolute;
-            bottom: 25px;
-            right: 28px;
-        }   
+        position: absolute;
+        bottom: 25px;
+        right: 28px;
+    }
+
+    transition-property: #FD5103;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
 }
+
 .modal__btn:hover {
     color: #FD5103;
     background-color: white;
     border: 2px solid #FD5103;
-    
+
 
 }
 
@@ -247,7 +229,7 @@
 .cocktail__modal-btn {
 
     @media (min-width: 768px) {
-        // justify-content: flex-end;
+        justify-content: flex-end;
         margin-bottom: 28px;
         margin-right: 28px;
         display: flex;
@@ -291,7 +273,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color:#FD5103;
+        background-color: #FD5103;
         border-radius: 10px;
     }
 
@@ -326,7 +308,8 @@
     }
 }
 
-.ingredient__item:hover,.ingredient-link:hover {
-    color:#FD5103;
-    cursor:pointer;
+.ingredient__item:hover,
+.ingredient-link:hover {
+    color: #FD5103;
+    cursor: pointer;
 }
