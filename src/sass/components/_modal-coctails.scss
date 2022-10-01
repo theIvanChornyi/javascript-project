@@ -42,7 +42,7 @@
         height: 598px;
         padding-right: 32px;
     }
-}    
+}
 
 .image__wrap {
     // width: 280px;
@@ -63,7 +63,7 @@
 .btn--close {
     width: 40px;
     height: 40px;
-    background:transparent;
+    background: transparent;
     border: #0000;
     justify-content: center;
     align-items: center;
@@ -73,29 +73,30 @@
     position: absolute;
     top: 12px;
     right: 12px;
+
     & {
-            cursor: pointer;
-            position: absolute;
-            top: 20px;
-            left: 10px;
-        }
-    
-        &:before,
-        &:after {
-            content: "";
-            position: absolute;
-            width: 24px;
-            height: 1px;
-            background: black;
-        }
-    
-        &:before {
-            transform: rotate(45deg);
-        }
-    
-        &:after {
-            transform: rotate(-45deg);
-        }
+        cursor: pointer;
+        position: absolute;
+        top: 20px;
+        left: 10px;
+    }
+
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        width: 24px;
+        height: 1px;
+        background: black;
+    }
+
+    &:before {
+        transform: rotate(45deg);
+    }
+
+    &:after {
+        transform: rotate(-45deg);
+    }
 }
 
 .cocktail__name {
@@ -139,7 +140,7 @@
     color: #202025;
 
     @media (min-width: 768px) {
-            
+
         margin-bottom: 24px;
     }
 }
@@ -200,21 +201,24 @@
     border: transparent;
     border-radius: 4px;
     text-align: center;
+
     @media (min-width: 768px) {
-            position: absolute;
-            bottom: 25px;
-            right: 28px;
-        }
-        transition-property: #FD5103;
-        transition-duration: 250ms;
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-        
+        position: absolute;
+        bottom: 25px;
+        right: 28px;
+    }
+
+    transition-property: #FD5103;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
 }
+
 .modal__btn:hover {
     color: #FD5103;
     background-color: white;
     border: 2px solid #FD5103;
-    
+
 
 }
 
@@ -269,7 +273,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color:#FD5103;
+        background-color: #FD5103;
         border-radius: 10px;
     }
 
@@ -304,7 +308,8 @@
     }
 }
 
-.ingredient__item:hover,.ingredient-link:hover {
-    color:#FD5103;
-    cursor:pointer;
+.ingredient__item:hover,
+.ingredient-link:hover {
+    color: #FD5103;
+    cursor: pointer;
 }

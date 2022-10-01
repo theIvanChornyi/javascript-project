@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const modalRef = document.querySelector('.description__backdrop');
 const markupRef = document.querySelector('.markup');
 const closeRef = document.querySelector('.description__button__close');
@@ -78,11 +77,6 @@ async function marcup(data) {
       // console.log(string);
       const htmlElem = `${string}`;
 
-      console.log('htmlElem', htmlElem);
-      return htmlElem;
-    })
-    .join('');
-}
 
 function closeEsc(e) {
   if (e.code === Escape) {
@@ -102,9 +96,3 @@ function closeBacdrop(e) {
     <span class="description__accent">&#10038</span> Country of origin: Italy
   </li>
 
-  <li class="description__list">
-    <span class="description__accent">&#10038</span> Flavour: Bitter, spicy and
-    sweet
-  </li>
-</ul>; */
-}
