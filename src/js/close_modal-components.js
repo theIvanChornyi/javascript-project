@@ -54,7 +54,7 @@ async function check(element) {
   markupRef.innerHTML = markupString;
 }
 
-async function marcup({ strIngredient, strDescription, strType, strABV }) {
+async function marcup({ idIngredient, strIngredient, strDescription, strType, strABV }) {
 
   let string = '';
 
@@ -75,7 +75,16 @@ async function marcup({ strIngredient, strDescription, strType, strABV }) {
       if (strABV) {
         string += `<li class="description__list"><span class="description__accent">&#10038</span> Alcohol by volume: ${strABV}</li>`;
       }
-  return `<div class="description">${string}</div>`;
+  return `
+
+  <div class="description">
+    <button type="button" autofocus class="description__button__close" data-modal="close-cocktail">
+    </button>
+  ${string}
+  </div>
+        <div class="cocktail__modal-btn">
+        <button type="button" class="description__favoriteBt modal__btnJS" data-cocktaileid='${idIngredient}'>Add to favorite</button>
+      </div>`;ß
   
 };
 
