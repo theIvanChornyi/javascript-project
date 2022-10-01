@@ -7,15 +7,11 @@ import Chi from '../img/flag-chile.png';
 
 const whyNotBtnRef = document.querySelector('.btn-why-not');
 
-whyNotBtnRef.addEventListener('click', () => {
+whyNotBtnRef?.addEventListener('click', () => {
   choosePlace();
 });
 
-console.log('button', whyNotBtnRef);
-
 const choosePlace = () => {
-  console.log('button first');
-
   let myObj, randomItem;
   //Storing data:
   myObj = {
@@ -49,17 +45,17 @@ const choosePlace = () => {
      <p class='wine-name' >${randomItem}</p>
      </div>
      `;
-  document.getElementById('kafe').innerHTML = markup;
-  console.log('randomIt', randomItem);
+  const kafe = document.getElementById('kafe');
+  if (kafe) {
+    kafe.innerHTML = markup;
+  }
 };
 
 function pickRandom(obj) {
-  console.log('obj', obj);
   let result;
   let count = 0;
   for (let prop in obj) {
     if (Math.random() < 1 / ++count) {
-      console.log('prop', prop);
       result = prop;
     }
   }
