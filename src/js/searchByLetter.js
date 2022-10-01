@@ -109,7 +109,7 @@ async function cocktailData(letter) {
       console.log(data);
 
       removeMarkup(cocktailsList);
-      titleRef.textContent = "Sorry, we didn't find any cocktail for you";
+      titleRef.classList.add('visually-hidden');
       sorryText();
       Notiflix.Notify.failure(
         'Unfortunately, such a cocktail is not available.'
@@ -168,6 +168,7 @@ async function onInput(event) {
 
   cocktailsList.innerHTML = await drinkU.join('');
   titleRef.textContent = 'Searching results';
+  sorryCardEl.classList.add('visually-hidden');
   wrireRemovetCoctaileFunction('[data-cocktaileId]');
   openCoctaileInfoModal('[data-moreId]');
 }
