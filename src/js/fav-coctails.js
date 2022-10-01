@@ -51,7 +51,6 @@ function removeFromFav() {
         const card = e.target.closest('.gallery__card');
         card.remove();
         onAuthStateChanged(auth, user => {
-          console.log('user.uid', user.uid);
           removeUserCoctaile(user.uid, cocktaileid);
         });
       },
