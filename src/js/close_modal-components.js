@@ -1,12 +1,19 @@
 import axios from 'axios';
-const modalRef = document.querySelector('.description__backdrop');
-const markupRef = document.querySelector('.markup');
-const closeRef = document.querySelector('.description__button__close');
-const favoritBtRef = document.querySelector('.description__favoriteBt');
+import { functions } from 'lodash';
+// const modalRef = document.querySelector('.description__backdrop');
+// const markupRef = document.querySelector('.markup');
+// const closeRef = document.querySelector('.description__button__close');
+// const favoritBtRef = document.querySelector('.description__favoriteBt');
 
 // openModal();
 
 // favoritBtRef.addEventListener('click', offFavoritBt);
+
+export function openCoctaileInfoModal() {
+  const favoriteBtn = document.querySelectorAll('[data-ingridientname]');
+  favoriteBtn.forEach(btn => btn.addEventListener('click', openModal));
+}
+
 
 function offFavoritBt(e) {
   favoritBtRef.innerHTML = `Remove from favorite`;
@@ -20,24 +27,25 @@ function onFavoritBt(e) {
 }
 
 function openModal(e) {
-  getIngridient();
-  closeRef.addEventListener('click', () => {
-    modalRef.classList.add('visually-hidden');
-  });
-  modalRef.addEventListener('click', closeBacdrop);
-  document.addEventListener('keydown', closeEsc);
+  const IngrdName = e.currentTarget.dataset.ingridientname
+  getIngridient(IngrdName);
+  // closeRef.addEventListener('click', () => {
+  //   modalRef.classList.add('visually-hidden');
+  // });
+  // modalRef.addEventListener('click', closeBacdrop);
+  // document.addEventListener('keydown', closeEsc);
 }
 
-async function getIngridient() {
+async function getIngridient(IngrdName) {
+
   const request = await axios(
-    'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=cola'
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${IngrdName}`
   )
-    .catch(function (error) {
-      console.log(error);
-    })
-    .then(({ data: { ingredients } }) => {
-      check(ingredients);
-    });
+  const objectData = await request.data.ingredients[0];
+  const createMarkup = await marcup(objectData);
+  const DOM = document.querySelector('.backdrop__cocktail');
+  DOM.insertAdjacentHTML('beforeend', createMarkup);
+
 }
 
 async function check(element) {
@@ -46,10 +54,10 @@ async function check(element) {
   markupRef.innerHTML = markupString;
 }
 
-async function marcup(data) {
-  return await data.map(
-    ({ strIngredient, strDescription, strType, strABV }) => {
-      let string = '';
+async function marcup({ strIngredient, strDescription, strType, strABV }) {
+
+  let string = '';
+
       if (strIngredient) {
         string += `<h2 class="description__title">${strIngredient}</h2>`;
       }
@@ -67,10 +75,10 @@ async function marcup(data) {
       if (strABV) {
         string += `<li class="description__list"><span class="description__accent">&#10038</span> Alcohol by volume: ${strABV}</li>`;
       }
-      return string;
-    }
-  );
-}
+  return `<div class="description">${string}</div>`;
+  
+};
+
 
 function closeEsc(e) {
   if (e.code === 'Escape') {
