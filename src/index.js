@@ -26,3 +26,4 @@ import './js/authorization-button';
 import './coctails';
 
 import './js/fav-coctails';
+import './js/btnUp';
