@@ -3,8 +3,6 @@ import axios from 'axios';
 const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
 export default class CocktailAPI {
-  KEY = 'cocktails';
-  INGREDIENTS = 'ingredients';
   constructor() {
     this.iid = [];
     this.name = '';

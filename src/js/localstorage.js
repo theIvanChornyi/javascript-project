@@ -1,5 +1,4 @@
-
-// ===>>  БУДЕМ НАСТРАИВАТЬ ПОЗЖЕ 
+// ===>>  БУДЕМ НАСТРАИВАТЬ ПОЗЖЕ
 
 import CocktailAPI from '../js/getCocktailOption';
 
