@@ -25,7 +25,7 @@ function onFormSubmit(evt) {
     window.location.href.includes('ingredients') ||
     window.location.href.includes('coctails')
   ) {
-    window.location.href = '../index.html';
+    window.location.href = 'https://faridmk.github.io/project-JS-goit/';
   }
   cocktailsList.innerHTML = '';
   dataFromInput = evt.target.input.value.trim();

@@ -11,6 +11,7 @@ import { getDatabase, set, ref, onValue, remove } from 'firebase/database';
 import { firebaseConfig } from '../config/firebase-config';
 import { userIn } from '../js/authorization-button';
 import { parseFavCoctails } from '../js/fav-coctails';
+import { parseFavIngridients } from '../js/fav-ingridients';
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
@@ -18,51 +19,54 @@ const provider = new GoogleAuthProvider();
 const database = getDatabase();
 
 export const signUp = () => {
-  signInWithPopup(auth, provider)
-    .then(result => {
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      const user = result.user;
-    })
-    .catch(error => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.customData.email;
-      const credential = GoogleAuthProvider.credentialFromError(error);
-    });
+  signInWithPopup(auth, provider);
 };
 
 export const quitAcc = () => {
-  signOut(auth)
-    .then(() => {})
-    .catch(error => {});
+  signOut(auth);
 };
 
 onAuthStateChanged(auth, user => {
-  onValue(ref(database, user?.uid + '/coctailes'), snapshot => {
-    const data = snapshot.val();
-    if (data) {
-      const favoriteCoctailesRawArr = Object.values(data);
-      const favoriteCoctailesArr = favoriteCoctailesRawArr.map(
-        id => id.cockteileId
-      );
-      parseFavCoctails(favoriteCoctailesArr);
-    }
-  });
-
+  getDataArrfromDb(user, '/coctailes', 'cockteileId', parseFavCoctails);
+  getDataArrfromDb(user, '/ingridients', 'ingredientName', parseFavIngridients);
   userIn('enable');
   if (!user) {
     userIn('disable');
   }
+  writeUserIngridients(user?.uid, 'Vodka', { ingredientName: 'vodka' });
+  writeUserIngridients(user?.uid, 'Vodka', { ingredientName: 'vodka' });
+  writeUserIngridients(user?.uid, 'Vodka', { ingredientName: 'vodka' });
 });
 
 export function writeUserCoctaile(userId, cockteileId, data = {}) {
-  set(ref(database, `${userId}/coctailes/` + cockteileId), data);
+  if (userId) {
+    set(ref(database, `${userId}/coctailes/` + cockteileId), data);
+  }
 }
 export function removeUserCoctaile(userId, cockteileId, data = {}) {
-  remove(ref(database, `${userId}/coctailes/` + cockteileId), data);
+  if (userId) {
+    remove(ref(database, `${userId}/coctailes/` + cockteileId), data);
+  }
 }
 
-export function writeUseringridients(data = {}) {
-  set(ref(database, 'ingridients'), data);
+export function writeUserIngridients(userId, ingridientName, data = {}) {
+  if (userId) {
+    set(ref(database, `${userId}/ingridients/` + ingridientName), data);
+  }
+}
+export function removeUserIngridients(userId, ingridientName, data = {}) {
+  if (userId) {
+    remove(ref(database, `${userId}/ingridients/` + ingridientName), data);
+  }
+}
+
+export function getDataArrfromDb(user, way, searchKey, callback) {
+  onValue(ref(database, user?.uid + way), snapshot => {
+    const data = snapshot.val();
+    if (data) {
+      const favoriteIngridientsRawArr = Object.values(data);
+      const favoditeArr = favoriteIngridientsRawArr.map(id => id[searchKey]);
+      callback(favoditeArr);
+    }
+  });
 }
