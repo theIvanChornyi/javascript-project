@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { wrireRemovetCoctaileFunction } from '../coctails';
+
 import { openCoctaileInfoModal } from './modal-coctails';
 
 export const cocktailsList = document.querySelector('.gallery__cards');
