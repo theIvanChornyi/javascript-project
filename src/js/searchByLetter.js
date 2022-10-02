@@ -24,8 +24,6 @@ export default class CocktailAPI {
   }
 }
 
-// by Letter
-
 async function getCocktailByLetter(letter) {
   try {
     const response = await axios(`${BASE_URL}search.php?f=${letter}`);
@@ -48,7 +46,6 @@ keyboardItemEl?.addEventListener('click', onLetterClick);
 
 function onLetterClick(event) {
   event.preventDefault();
-  console.dir(event);
 
   letter = event.target.dataset.id;
   cocktailData(letter);
@@ -57,7 +54,6 @@ function onLetterClick(event) {
 
   letter = event.target.dataset.id;
 
-  console.log(letter);
   cocktailData(letter);
 }
 
@@ -70,7 +66,6 @@ async function cocktailMarkupList(arr) {
      <h3 class='gallery__card-name'>${strDrink}</h3>
      <div class='btn__box'>
 
-    
      <button type='button' class='gallery__btn-load-more' data-open='open-modal-description' data-moreId='${idDrink}'>Learn more</button>
       <button type='button' class='gallery__btn-add-to-fav' data-add='add-to-fav' data-cocktaileId='${idDrink}'>Add to</button>
 
@@ -103,7 +98,6 @@ async function cocktailData(letter) {
   try {
     const data = await getCocktailByLetter(letter);
     if (!data?.drinks) {
-      console.log(data);
 
       removeMarkup(cocktailsList);
       titleRef.classList.add('visually-hidden');
@@ -130,7 +124,6 @@ async function cocktailData(letter) {
       }
 
       const markupDrink = await drinksLetterCocktail(data.drinks);
-      console.log(markupDrink);
 
       const drinkU = await cocktailMarkupList(markupDrink);
 
@@ -153,13 +146,11 @@ customKeyboard?.addEventListener('input', onInput);
 
 async function onInput(event) {
   event.preventDefault();
-  console.dir(event.target.title);
   letter = event.target.title;
 
   cocktailData(letter);
 
   const markupDrink = await drinksLetterCocktail(data.drinks);
-  console.log(markupDrink);
 
   const drinkU = await cocktailMarkupList(markupDrink);
 
