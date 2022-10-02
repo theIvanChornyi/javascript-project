@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 import { wrireRemovetCoctaileFunction } from '../coctails';
+
 import { openCoctaileInfoModal } from './modal-coctails';
 
 export const cocktailsList = document.querySelector('.gallery__cards');
-export const preloader = document.querySelector('.preloader');
+export const preloader = document.querySelector('.loader');
 export const preloaderFav = document.querySelector('.preloader-fav-coc');
 export const section = document.querySelector('.section-gallery');
 const width = document.documentElement.clientWidth;
