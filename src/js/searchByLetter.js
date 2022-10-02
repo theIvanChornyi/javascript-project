@@ -3,97 +3,25 @@ import { wrireRemovetCoctaileFunction } from '../coctails';
 import { openCoctaileInfoModal } from './modal-coctails';
 
 import Notiflix from 'notiflix';
-
 import axios from 'axios';
 
 const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
-export default class CocktailAPI {
-  constructor() {
-    this.iid = [];
-    this.name = '';
-    this.letter = '';
-    this.page = 1;
-    this.drinks = '';
-    this.searchQuery = '';
-    this.category = '';
-    this.drinks = '';
-    this.ingredients = [];
-    this.favoriteDrinks = [];
-    this.favoriteIngredients = [];
-  }
-}
-
-// by Letter
-
-async function getCocktailByLetter(letter) {
-  try {
-    const response = await axios(`${BASE_URL}search.php?f=${letter}`);
-    if (!response.data) {
-      throw new Error(response);
-    }
-    return response.data;
-  } catch (error) {
-    Notiflix.Notify.failure('Ooops, error!');
-  }
-}
 const keyboardItemEl = document.querySelector('[data-action="keyboard"]');
 const titleRef = document.querySelector('.gallery__title');
 const sorryCardEl = document.querySelector('.sorry-card');
-
-let letter = '';
+const customKeyboard = document.querySelector('.custom-select');
 
 keyboardItemEl?.addEventListener('click', onLetterClick);
+customKeyboard?.addEventListener('input', onLetterClick);
 
 function onLetterClick(event) {
   event.preventDefault();
 
+  let letter = '';
   letter = event.target.dataset.id;
   cocktailData(letter);
-
-  event.preventDefault();
-
-  letter = event.target.dataset.id;
-
-  cocktailData(letter);
-}
-
-async function cocktailMarkupList(arr) {
-  return arr.map(({ strDrinkThumb, strDrink, idDrink }) => {
-    const markup = `<li class='gallery__card'>
-
-     <img src=${strDrinkThumb} alt=${strDrink} class='gallery__card-img'>
-     <div class='gallery__card_thumb'>
-     <h3 class='gallery__card-name'>${strDrink}</h3>
-     <div class='btn__box'>
-
-    
-     <button type='button' class='gallery__btn-load-more' data-open='open-modal-description' data-moreId='${idDrink}'>Learn more</button>
-      <button type='button' class='gallery__btn-add-to-fav' data-add='add-to-fav' data-cocktaileId='${idDrink}'>Add to</button>
-
-      </div>
-     </div>
-     </li>`;
-    return markup;
-  });
-}
-
-async function drinksLetterCocktail(arr) {
-  let drinks = [];
-  if (document.documentElement.clientWidth >= 1280) {
-    drinks = arr.splice(0, 9);
-  } else if (
-    document.documentElement.clientWidth >= 768 &&
-    document.documentElement.clientWidth < 1280
-  ) {
-    drinks = arr.splice(0, 6);
-  } else if (
-    document.documentElement.clientWidth > 0 &&
-    document.documentElement.clientWidth < 768
-  ) {
-    drinks = arr.splice(0, 3);
-  }
-  return drinks;
+  titleRef.scrollIntoView({ behavior: 'smooth' });
 }
 
 async function cocktailData(letter) {
@@ -122,63 +50,68 @@ async function cocktailData(letter) {
           'Unfortunately, such a cocktail is not available.'
         );
         throw new Error('response');
+      } else {
+        const markupDrink = await drinksLetterCocktail(data.drinks);
+        const drinkU = await cocktailMarkupList(markupDrink);
+        cocktailsList.innerHTML = await drinkU.join('');
+        titleRef.textContent = 'Searching results';
       }
-
-      const markupDrink = await drinksLetterCocktail(data.drinks);
-
-      const drinkU = await cocktailMarkupList(markupDrink);
-
-      cocktailsList.innerHTML = await drinkU.join('');
-      titleRef.textContent = 'Searching results';
     } catch (error) {}
   } catch (e) {}
+}
+
+async function getCocktailByLetter(letter) {
+  try {
+    const response = await axios(`${BASE_URL}search.php?f=${letter}`);
+    if (!response.data) {
+      throw new Error(response);
+    }
+    return response.data;
+  } catch (error) {
+    Notiflix.Notify.failure('Ooops, error!');
+  }
+}
+
+async function drinksLetterCocktail(arr) {
+  let drinks = [];
+  if (document.documentElement.clientWidth >= 1280) {
+    drinks = arr.splice(0, 9);
+  } else if (
+    document.documentElement.clientWidth >= 768 &&
+    document.documentElement.clientWidth < 1280
+  ) {
+    drinks = arr.splice(0, 6);
+  } else if (
+    document.documentElement.clientWidth > 0 &&
+    document.documentElement.clientWidth < 768
+  ) {
+    drinks = arr.splice(0, 3);
+  }
+  return drinks;
+}
+
+async function cocktailMarkupList(arr) {
+  return arr.map(({ strDrinkThumb, strDrink, idDrink }) => {
+    return `<li class='gallery__card'>
+
+     <img src=${strDrinkThumb} alt=${strDrink} class='gallery__card-img'>
+     <div class='gallery__card_thumb'>
+     <h3 class='gallery__card-name'>${strDrink}</h3>
+     <div class='btn__box'>
+
+     <button type='button' class='gallery__btn-load-more' data-open='open-modal-description' data-moreId='${idDrink}'>Learn more</button>
+      <button type='button' class='gallery__btn-add-to-fav' data-add='add-to-fav' data-cocktaileId='${idDrink}'>Add to</button>
+
+      </div>
+     </div>
+     </li>`;
+  });
 }
 
 function sorryText() {
   removeMarkup(cocktailsList);
   sorryCardEl.classList.remove('visually-hidden');
 }
-
-const customKeyboard = document.querySelector('.custom-select');
-
-customKeyboard?.addEventListener('input', onInput);
-
-async function onInput(event) {
-  event.preventDefault();
-  letter = event.target.title;
-
-  cocktailData(letter);
-
-  const markupDrink = await drinksLetterCocktail(data.drinks);
-
-  const drinkU = await cocktailMarkupList(markupDrink);
-
-  cocktailsList.innerHTML = await drinkU.join('');
-  titleRef.textContent = 'Searching results';
-  sorryCardEl.classList.add('visually-hidden');
-  wrireRemovetCoctaileFunction('[data-cocktaileId]');
-  openCoctaileInfoModal('[data-moreId]');
-}
-
-// function sorryText() {
-//   const markup = `
-//     <picture>
-
-//         <source srcset="./img/pictures/desktop/empty_page_345x380.png" media="(min-width:1280px)" />
-//         <source srcset="./img/pictures/desktop/empty_page_690x760@2x.png" media="(min-width:1280px)" />
-
-//         <source srcset="./img/pictures/tablet/empty_page_345x381.png" media="(min-width:768px)" />
-//         <source srcset="./img/pictures/tablet/empty_page_690x762@2x.png" media="(min-width:768px)" />
-
-//         <source srcset="./img/pictures/mobile/empty_page_280x308.png" media="(min-width:480px)" />
-//         <source srcset="./img/pictures/mobile/empty_page_560x617@2x.png" media="(min-width:480px)" />
-
-//     <img class="sorry__card" src="./img/pictures/desktop/empty_page_345x380.png" alt="Apologise card" />
-//     </picture>
-//     `;
-
-//   cocktailsList.innerHTML = markup;
-// }
 
 function removeMarkup(element) {
   element.innerHTML = '';

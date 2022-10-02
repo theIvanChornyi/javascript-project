@@ -5,7 +5,7 @@
 
 .description {
   min-width: 320px;
-  /* height: 673px; */
+  height: 90vh;
   padding: 20px;
   margin: auto;
   background-color: white;
@@ -14,17 +14,18 @@
   border-radius: 16px;
 
   @media screen and (min-width: 480px) {
-    width: 480px;
+    width: 485px;
+    min-height: 956px;
   }
 
   @media screen and (min-width: 768px) {
-    width: 715px;
+    width: 720px;
     padding: 28px;
     min-height: 557px;
   }
 
   @media screen and (min-width: 1280px) {
-    max-width: 715px;
+    max-width: 720px;
     padding-right: 16px;
     padding-left: 16px;
   }
@@ -156,7 +157,7 @@
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   background: #fd5103;
   border-radius: 4px;
-  width: 248px;
+  min-width: 185;
   height: 48px;
   // margin-top: 32px;
   // margin-bottom: 40px;
@@ -165,7 +166,7 @@
     // transform: translateX(150%);
     bottom: 28px;
     position: absolute;
-    right: 28px;
+    right: 25px;
     transition-property: color;
     transition-duration: 250ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -184,5 +185,3 @@
 // transition-property: #fd5103;
 // transition-duration: 250ms;
 // transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-
-

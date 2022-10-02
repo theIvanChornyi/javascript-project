@@ -6,7 +6,7 @@
   padding-top: 20px;
   padding-bottom: 10px;
   width: 100%;
-  min-height: 500px;
+  min-height: 320px;
 
   @media screen and (min-width: 480px) {
     width: 480px;
@@ -20,7 +20,7 @@
     height: 100%;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     width: 1280px;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -28,13 +28,13 @@
   }
 }
 
-.gallery__helper {
-  height: 350px;
+// .gallery__helper {
+//   height: 350px;
 
-  @media screen and (min-width: 768px) {
-    height: 500px;
-  }
-}
+//   @media screen and (min-width: 768px) {
+//     height: 300px;
+//   }
+// }
 
 .gallery__cards {
   // position: relative;
@@ -74,7 +74,7 @@
     line-height: 1.31;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     font-size: 48px;
     line-height: 1.5;
   }
@@ -103,7 +103,7 @@
     width: 335px;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     width: 395px;
   }
 }
@@ -117,7 +117,7 @@
     padding-bottom: 20px;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     padding-bottom: 30px;
   }
 }
@@ -147,7 +147,7 @@
     line-height: 33px;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     font-size: 32px;
     line-height: 38px;
   }
@@ -199,7 +199,7 @@
     line-height: 1.2;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     width: 182px;
     margin-right: 16px;
   }
@@ -251,7 +251,7 @@
     line-height: 1.2;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     width: 141px;
     background-position: 100px 14px;
   }
@@ -264,60 +264,58 @@
 
 // ======= PRELOADER =======
 
-.preloader {
-  position: absolute;
-  left: 0;
-  top: 0;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  /* фоновый цвет */
-  z-index: 1001;
+.loader {
+  --s: 40px; /* control the size */
+  --b: 18px; /* control the border thickness */
+
+  width: calc(8 * var(--s));
+  aspect-ratio: 4;
+  display: grid;
+}
+.loader::before,
+.loader::after {
+  content: '';
+  grid-area: 1/1;
+  background: linear-gradient(#fd5103 50%, #8d1f00 0) no-repeat,
+    linear-gradient(#fd5103 50%, #8d1f00 0) no-repeat;
+  background-size: 50% 200%;
+  --_g: calc(-0.45 * var(--s)), #0000 calc(99% - var(--b)),
+    #000 calc(101% - var(--b)) 99%, #0000 101%;
+  --_s: calc(4 * var(--s)) var(--s) repeat-x;
+  --_r: calc(1.096 * var(--s) + var(--b) / 2);
+  mask: radial-gradient(var(--_r) at left 50% bottom var(--_g))
+      calc(50% - 2 * var(--s)) calc(50% - var(--s) / 2) / var(--_s),
+    radial-gradient(var(--_r) at left 50% top var(--_g)) 50%
+      calc(50% + var(--s) / 2) / var(--_s);
+  animation: back 6s infinite steps(1), load 1.5s infinite linear alternate;
+}
+.loader::after {
+  transform: scaleY(-1);
+  animation-delay: -1.5s;
 }
 
-.preloader__image {
-  position: fixed;
-  top: 50%;
-  left: 61%;
-  // transform: translateX(-50%);
-  fill: #fd5103;
-  width: 70px;
-  height: 70px;
-  margin-top: -70px;
-  margin-left: -70px;
-  text-align: center;
-  animation: preloader-rotate 2s infinite linear;
-
-  @media screen and (min-width: 480px) {
-    left: 58%;
+@keyframes load {
+  0% {
+    clip-path: inset(0 75% 0 0);
   }
-
-  @media screen and (min-width: 768px) {
-    left: 50%;
-    width: 150px;
-    height: 150px;
-  }
-
-  @media screen and (min-width: 1200px) {
-    left: 47%;
-    width: 200px;
-    height: 200px;
+  to {
+    clip-path: inset(0 0 0 75%);
   }
 }
-
-@keyframes preloader-rotate {
+@keyframes back {
+  0%,
   100% {
-    transform: rotate(360deg);
+    background-position: 0% 0%, 100% 0%;
   }
-}
-
-.loaded_hiding .preloader {
-  transition: 0.3s opacity;
-  opacity: 0;
-}
-
-.loaded .preloader {
-  display: none;
+  25% {
+    background-position: 0% 100%, 100% 0%;
+  }
+  50% {
+    background-position: 0% 100%, 100% 100%;
+  }
+  75% {
+    background-position: 0% 0%, 100% 100%;
+  }
 }
 
 .sorry__title {
@@ -344,7 +342,7 @@
     margin-bottom: 62px;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     font-size: 48px;
     line-height: 1.5;
     margin-bottom: 70px;
@@ -363,7 +361,7 @@
     padding-bottom: 0;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     padding-bottom: 28px;
   }
 }
