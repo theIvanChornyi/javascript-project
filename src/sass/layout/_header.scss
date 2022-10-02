@@ -69,6 +69,7 @@
 }
 
 .header__cross {
+  z-index: 9;
   display: block;
   width: 47px;
   height: 39px;
@@ -85,7 +86,7 @@
 
 .header__mobil {
   position: absolute;
-  z-index: 5;
+  z-index: 8;
   top: 0;
   left: 0;
   width: 100%;
