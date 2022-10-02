@@ -30,7 +30,6 @@ async function getCocktailByLetter(letter) {
   try {
     const response = await axios(`${BASE_URL}search.php?f=${letter}`);
     if (!response.data) {
-      console.log(response);
       throw new Error(response);
     }
     return response.data;
@@ -48,7 +47,6 @@ keyboardItemEl?.addEventListener('click', onLetterClick);
 
 function onLetterClick(event) {
   event.preventDefault();
-  console.dir(event);
 
   letter = event.target.dataset.id;
   cocktailData(letter);
@@ -57,7 +55,6 @@ function onLetterClick(event) {
 
   letter = event.target.dataset.id;
 
-  console.log(letter);
   cocktailData(letter);
 }
 
@@ -103,8 +100,6 @@ async function cocktailData(letter) {
   try {
     const data = await getCocktailByLetter(letter);
     if (!data?.drinks) {
-      console.log(data);
-
       removeMarkup(cocktailsList);
       titleRef.classList.add('visually-hidden');
       sorryText();
@@ -130,15 +125,12 @@ async function cocktailData(letter) {
       }
 
       const markupDrink = await drinksLetterCocktail(data.drinks);
-      console.log(markupDrink);
 
       const drinkU = await cocktailMarkupList(markupDrink);
 
       cocktailsList.innerHTML = await drinkU.join('');
       titleRef.textContent = 'Searching results';
-    } catch (error) {
-      console.log('error', error);
-    }
+    } catch (error) {}
   } catch (e) {}
 }
 
@@ -153,13 +145,11 @@ customKeyboard?.addEventListener('input', onInput);
 
 async function onInput(event) {
   event.preventDefault();
-  console.dir(event.target.title);
   letter = event.target.title;
 
   cocktailData(letter);
 
   const markupDrink = await drinksLetterCocktail(data.drinks);
-  console.log(markupDrink);
 
   const drinkU = await cocktailMarkupList(markupDrink);
 

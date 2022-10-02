@@ -32,9 +32,7 @@ async function getIngridient() {
   const request = await axios(
     'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=cola'
   )
-    .catch(function (error) {
-      console.log(error);
-    })
+    .catch(function (error) {})
     .then(({ data: { ingredients } }) => {
       check(ingredients);
     });
@@ -42,7 +40,6 @@ async function getIngridient() {
 
 async function check(element) {
   const markupString = await marcup(element);
-  console.log('1111', markupString);
   markupRef.innerHTML = markupString;
 }
 

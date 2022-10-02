@@ -29,7 +29,6 @@ function setActiveTheme(paramet) {
   themeSwitchMobRef.checked = paramet;
   themeSwitchDeskRef.checked = paramet;
 }
-console.log(activeTheme);
 if (activeTheme === null || activeTheme === 'light') {
   applyTheme('light');
   setActiveTheme(false);

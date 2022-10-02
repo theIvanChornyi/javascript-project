@@ -14,7 +14,6 @@ export async function parseFavIngridients(array) {
   const response = await Promise.all(getIngridientsData);
   if (response.length > 0) {
     const responseData = response.map(obj => obj.data.ingredients[0]);
-    console.log('responseData', responseData);
     const htmlStringMarkup = responseData
       .map(obg => getHtmlString(obg))
       .join('');
@@ -26,11 +25,18 @@ export async function parseFavIngridients(array) {
   }
 }
 
-function getHtmlString({ strIngredient, strType }) {
+function getHtmlString({ strIngredient, strType, strABV }) {
   preloader?.classList.add('visually-hidden');
-  return ` <li class="f-ing_items">
+  let string = '';
+  if (strABV) {
+    string += 'alcohol';
+  } else {
+    string += 'no__alcohol';
+  }
+  return `<li class="f-ing_items">
           <h3 class="f-ing_subtitle">${strIngredient}</h3>
           <p class="f-ing_text">${strType}</p>
+          <div class="${string} f-ing-indicator"></div>
           <div class="f-ing_btn">
             <button type="button" class="f-ing_btn-add"  data-ingridientname='${strIngredient}'>Learn More</button>
             <button type="button" class="f-ing_btn-rem" data-ingridientname='${strIngredient}'>Remove</button>

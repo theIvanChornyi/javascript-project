@@ -22,9 +22,7 @@ export function getCocktailStorageData(payLoad) {
   try {
     const jsonData = localStorage.getItem(payLoad);
     return jsonData ? JSON.parse(jsonData) : [];
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 //              -------Remove from Local Storage-------
