@@ -1,30 +1,12 @@
 import axios from 'axios';
 import { functions } from 'lodash';
-// const modalRef = document.querySelector('.description__backdrop');
-// const markupRef = document.querySelector('.markup');
-// const closeRef = document.querySelector('.description__button__close');
-// const favoritBtRef = document.querySelector('.description__favoriteBt');
 
-// openModal();
-
-// favoritBtRef.addEventListener('click', offFavoritBt);
 
 export function openCoctaileInfoModal() {
   const favoriteBtn = document.querySelectorAll('[data-ingridientname]');
   favoriteBtn.forEach(btn => btn.addEventListener('click', openModal));
 }
 
-
-function offFavoritBt(e) {
-  favoritBtRef.innerHTML = `Remove from favorite`;
-  const removeFaforit = document.querySelector('description__button');
-  favoritBtRef.removeEventListener('click', offFavoritBt);
-}
-
-function onFavoritBt(e) {
-  favoritBtRef.innerHTML = `Add to favorite`;
-  favoritBtRef.addEventListener('click', offFavoritBt);
-}
 
 function openModal(e) {
   const IngrdName = e.currentTarget.dataset.ingridientname
@@ -48,11 +30,6 @@ async function getIngridient(IngrdName) {
 
 }
 
-async function check(element) {
-  const markupString = await marcup(element);
-  console.log('1111', markupString);
-  markupRef.innerHTML = markupString;
-}
 
 async function marcup({ idIngredient, strIngredient, strDescription, strType, strABV }) {
 
@@ -88,15 +65,3 @@ async function marcup({ idIngredient, strIngredient, strDescription, strType, st
   
 };
 
-
-function closeEsc(e) {
-  if (e.code === 'Escape') {
-    modalRef.classList.add('visually-hidden');
-  }
-}
-
-function closeBacdrop(e) {
-  if (e.currentTarget === e.target) {
-    modalRef.classList.add('visually-hidden');
-  }
-}
