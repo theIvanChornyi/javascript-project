@@ -168,11 +168,6 @@
     text-align: left;
     letter-spacing: 0.03em;
     color: #000917;
-
-
-
-
-
 }
 
 .cocktail__text {
@@ -186,12 +181,16 @@
     letter-spacing: 0.03em;
     color: #202025;
 }
+.recipe__wrapper {
+    @media (min-width: 768px) {
+
+        position: absolute;
+    }
+}
 
 .modal__btn {
     min-width: 185;
     height: 48px;
-    // margin-right: auto;
-    // margin-left: auto;
     background: #FD5103;
     font-weight: 400;
     font-size: 20px;
@@ -204,7 +203,7 @@
 
     @media (min-width: 768px) {
         position: absolute;
-        bottom: 25px;
+        bottom: 26px;
         right: 28px;
     }
 
@@ -229,7 +228,7 @@
 .cocktail__modal-btn {
 
     @media (min-width: 768px) {
-        justify-content: flex-end;
+        // justify-content: flex-end;
         margin-bottom: 28px;
         margin-right: 28px;
         display: flex;
