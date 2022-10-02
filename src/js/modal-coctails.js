@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { wrireRemovetCoctaileFunction } from '../coctails';
-import { openCoctaileInfoModal } from './close_modal-components';
-
+import { openIngridientInfoModal } from './close_modal-components';
 
 export function openCoctaileInfoModal(selector) {
   const favoriteBtn = document.querySelectorAll(selector);
@@ -20,8 +19,7 @@ async function showModal(e) {
 
   modalAnc.insertAdjacentHTML('beforeend', markupString);
   document.body.classList.add('disable-scroll');
-  openCoctaileInfoModal();
-
+  openIngridientInfoModal();
 
   const closeBtn = modalAnc.querySelector('.btn--close');
   const addFavBtn = modalAnc.querySelector('.modal__btnJS');

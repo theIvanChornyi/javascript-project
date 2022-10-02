@@ -13,7 +13,6 @@ whyNotBtnRef?.addEventListener('click', () => {
 
 const choosePlace = () => {
   let myObj, randomItem;
-  //Storing data:
   myObj = {
     'Wine of Azerbaijan': Aze,
     'Wine of Ukraine': Ukr,

@@ -32,7 +32,7 @@ function onFormSubmit(evt) {
 
   fetchCockteilByName(dataFromInput);
 
-  titleRef.scrollIntoView(true);
+  titleRef.scrollIntoView({ behavior: 'smooth' });
 }
 // ============================================
 
