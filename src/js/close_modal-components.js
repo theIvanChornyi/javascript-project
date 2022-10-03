@@ -1,18 +1,16 @@
 import axios from 'axios';
 
-export function openIngridientInfoModal() {
-  const favoriteBtn = document.querySelectorAll('[data-ingridientname]');
-  favoriteBtn.forEach(btn => btn.addEventListener('click', openModal));
+export function openIngridientInfoModal(selector) {
+  const favoriteBtn = document.querySelector(selector);
+  favoriteBtn?.addEventListener('click', openModal);
 }
 
 function openModal(e) {
-  const IngrdName = e.currentTarget.dataset.ingridientname;
-  getIngridient(IngrdName);
-  // closeRef.addEventListener('click', () => {
-  //   modalRef.classList.add('visually-hidden');
-  // });
-  // modalRef.addEventListener('click', closeBacdrop);
-  // document.addEventListener('keydown', closeEsc);
+  const ingridientItem = e.target.closest('.ingredient__item').dataset;
+
+  if (ingridientItem?.open === 'open-ingridient-description') {
+    getIngridient(ingridientItem?.ingridientname);
+  }
 }
 
 async function getIngridient(IngrdName) {
@@ -23,6 +21,11 @@ async function getIngridient(IngrdName) {
   const createMarkup = await marcup(objectData);
   const DOM = document.querySelector('.backdrop__cocktail');
   DOM.insertAdjacentHTML('beforeend', createMarkup);
+  const backdrop = document.querySelector('.description__backdrop');
+  const closeBtn = backdrop.querySelector('[data-modal="close-ingred"]');
+
+  closeBtn.addEventListener('click', closeMoreModal);
+  backdrop.addEventListener('click', closeBybackdrop);
 }
 
 async function marcup({
@@ -67,4 +70,14 @@ async function marcup({
     </div>
     </div>
   </div>`;
+}
+
+export function closeBybackdrop(e) {
+  if (e.currentTarget === e.target) {
+    e.target.remove();
+  }
+}
+
+function closeMoreModal(e) {
+  e.currentTarget.closest('.description__backdrop').remove();
 }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { removeUserIngridients, auth } from '../servise/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { openIngridientInfoModal } from './js/close_modal-components';
 
 const preloader = document.querySelector('.preloader-fav-coc');
 const favIngridientsList = document.querySelector('.f-ing_blocks');
@@ -21,7 +22,7 @@ export async function parseFavIngridients(array) {
       favIngridientsList.innerHTML = htmlStringMarkup;
       removeFromFavIngr();
     }
-    // openCoctaileInfoModal('.gallery__btn-load-more');
+    openIngridientInfoModal();
   }
 }
 

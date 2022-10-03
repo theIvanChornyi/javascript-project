@@ -3,37 +3,40 @@ import { wrireRemovetCoctaileFunction } from '../coctails';
 import { openIngridientInfoModal } from './close_modal-components';
 
 export function openCoctaileInfoModal(selector) {
-  const favoriteBtn = document.querySelectorAll(selector);
-  favoriteBtn.forEach(btn => btn.addEventListener('click', showModal));
+  const favoriteBtn = document.querySelector(selector);
+  favoriteBtn?.addEventListener('click', showModal);
 }
 
 const modalAnc = document.querySelector('.modal__description');
 
 async function showModal(e) {
-  const coctaileId = e.target.dataset.moreid;
-  const response = await axios.get(
-    `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${coctaileId}`
-  );
-  const dataObj = await response.data.drinks[0];
-  const markupString = await objToString(dataObj);
+  const typeOfBtn = e.target.dataset.open;
+  if (typeOfBtn === 'open-modal-description') {
+    const coctaileId = e.target.dataset.moreid;
+    const response = await axios.get(
+      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${coctaileId}`
+    );
+    const dataObj = await response.data.drinks[0];
+    const markupString = await objToString(dataObj);
 
-  modalAnc.insertAdjacentHTML('beforeend', markupString);
-  document.body.classList.add('disable-scroll');
-  openIngridientInfoModal();
+    modalAnc.insertAdjacentHTML('beforeend', markupString);
+    document.body.classList.add('disable-scroll');
+    openIngridientInfoModal('.ingredients');
 
-  const closeBtn = modalAnc.querySelector('.btn--close');
-  const addFavBtn = modalAnc.querySelector('.modal__btnJS');
-  const backdrop = modalAnc.querySelector('.backdrop__cocktail');
+    const closeBtn = modalAnc.querySelector('.btn--close');
+    const addFavBtn = modalAnc.querySelector('.modal__btnJS');
+    const backdrop = modalAnc.querySelector('.backdrop__cocktail');
 
-  backdrop.addEventListener('click', closeBybackdrop);
+    backdrop.addEventListener('click', closeBybackdrop);
 
-  addFavBtn.focus();
-  wrireRemovetCoctaileFunction('.modal__btnJS');
-  document.addEventListener('keydown', closeMoreModalByKeyboard);
-  closeBtn.addEventListener('click', closeMoreModal);
+    addFavBtn.focus();
+    wrireRemovetCoctaileFunction('.modal__btnJS');
+    document.addEventListener('keydown', closeMoreModalByKeyboard);
+    closeBtn.addEventListener('click', closeMoreModal);
+  }
 }
 
-function closeBybackdrop(e) {
+export function closeBybackdrop(e) {
   if (e.currentTarget === e.target) {
     e.target.remove();
     document.body.classList.remove('disable-scroll');
@@ -42,12 +45,12 @@ function closeBybackdrop(e) {
 
 function closeMoreModalByKeyboard(e) {
   if (e.code === 'Escape') {
-    document.querySelector('.backdrop__cocktail').remove();
+    document.querySelector('.backdrop__cocktail')?.remove();
     document.body.classList.remove('disable-scroll');
   }
 }
 
-function closeMoreModal(e) {
+export function closeMoreModal(e) {
   e.currentTarget.closest('.backdrop__cocktail').remove();
   document.body.classList.remove('disable-scroll');
 }
@@ -65,7 +68,7 @@ function objToString(obj) {
   }
   const stringLi = ingridients
     .map(([ingridient, amount]) => {
-      return `<li class="ingredient__item" data-ingridientname='${ingridient}'>
+      return `<li class="ingredient__item" data-open='open-ingridient-description' data-ingridientname='${ingridient}'>
               <span class="ingredient__accent">✶</span>
               <span>${amount}</span>
               <a class="link ingredient-link"
@@ -92,7 +95,7 @@ function objToString(obj) {
           <h2 class="cocktail__name cocktail__name--big">${strDrink}</h2>
           <h4 class="recipe__title">INGREDIENTS</h4>
           <p class="cocktail__text">Per cocktail</p>
-          <ul class="ingredient">
+          <ul class="ingredients">
            ${stringLi}
             </li>
           </ul>

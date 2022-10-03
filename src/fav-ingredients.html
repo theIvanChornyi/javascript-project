@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
+    <title>Your ingredients - POCKET-BARMEN</title>
     <link
       rel="apple-touch-icon"
       sizes="57x57"
@@ -90,13 +90,15 @@
   <include src="./partials/header.html"></include>
 
   <body class="fav-ing">
-    <section class="container fav-ing">
-      <div>
-        <h2 class="f-ing_title">Favorite ingredients</h2>
-      </div>
-      <ul class="f-ing_blocks"></ul>
-    </section>
-
+    <main>
+      <section class="container fav-ing">
+        <div>
+          <h2 class="f-ing_title">Favorite ingredients</h2>
+          <div class="loader"></div>
+        </div>
+        <ul class="f-ing_blocks"></ul>
+      </section>
+    </main>
     <include src="./partials/footer.html"></include>
     <include src="./partials/mob-menu.html"></include>
     <include src="./partials/modal-coctails.html"></include>

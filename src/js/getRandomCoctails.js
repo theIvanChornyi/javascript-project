@@ -21,12 +21,11 @@ async function fetchRandomCockteil(n) {
         )
       );
     }
-    openCoctaileInfoModal('[data-moreId]');
   } catch (error) {
     throw new Error(error);
   }
-
   getUniqueObj();
+  openCoctaileInfoModal('.gallery__cards');
 }
 
 function getUniqueObj() {
@@ -80,5 +79,4 @@ export function createCardMarkup({ strDrinkThumb, strDrink, idDrink }) {
   preloaderFav?.classList.add('visually-hidden');
   section?.classList.remove('gallery__helper');
   wrireRemovetCoctaileFunction('[data-cocktaileId]');
-  openCoctaileInfoModal('[data-moreId]');
 }
