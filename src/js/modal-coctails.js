@@ -36,7 +36,7 @@ async function showModal(e) {
   }
 }
 
-function closeBybackdrop(e) {
+export function closeBybackdrop(e) {
   if (e.currentTarget === e.target) {
     e.target.remove();
     document.body.classList.remove('disable-scroll');
@@ -50,7 +50,7 @@ function closeMoreModalByKeyboard(e) {
   }
 }
 
-function closeMoreModal(e) {
+export function closeMoreModal(e) {
   e.currentTarget.closest('.backdrop__cocktail').remove();
   document.body.classList.remove('disable-scroll');
 }

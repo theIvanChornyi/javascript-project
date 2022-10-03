@@ -6,19 +6,11 @@ export function openIngridientInfoModal(selector) {
 }
 
 function openModal(e) {
-  const typeOfBtn = e.target.dataset;
   const ingridientItem = e.target.closest('.ingredient__item').dataset;
 
   if (ingridientItem?.open === 'open-ingridient-description') {
-    console.log('here');
     getIngridient(ingridientItem?.ingridientname);
   }
-
-  // closeRef.addEventListener('click', () => {
-  //   modalRef.classList.add('visually-hidden');
-  // });
-  // modalRef.addEventListener('click', closeBacdrop);
-  // document.addEventListener('keydown', closeEsc);
 }
 
 async function getIngridient(IngrdName) {
@@ -29,6 +21,11 @@ async function getIngridient(IngrdName) {
   const createMarkup = await marcup(objectData);
   const DOM = document.querySelector('.backdrop__cocktail');
   DOM.insertAdjacentHTML('beforeend', createMarkup);
+  const backdrop = document.querySelector('.description__backdrop');
+  const closeBtn = backdrop.querySelector('[data-modal="close-ingred"]');
+
+  closeBtn.addEventListener('click', closeMoreModal);
+  backdrop.addEventListener('click', closeBybackdrop);
 }
 
 async function marcup({
@@ -73,4 +70,14 @@ async function marcup({
     </div>
     </div>
   </div>`;
+}
+
+export function closeBybackdrop(e) {
+  if (e.currentTarget === e.target) {
+    e.target.remove();
+  }
+}
+
+function closeMoreModal(e) {
+  e.currentTarget.closest('.description__backdrop').remove();
 }
