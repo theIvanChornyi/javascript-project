@@ -116,9 +116,10 @@ function objToString(obj) {
         </div>
       </div>
       <div class="cocktail__modal-btn">
-        <button type="button" class="modal__btn modal__btnJS" data-add="add-to-fav" data-cocktaileid='${idDrink}'>Add to favorite</button>
       </div>
+       
     </div>
+    <button type="button" class="modal__btn modal__btnJS" data-add="add-to-fav" data-cocktaileid='${idDrink}'>Add to favorite</button>
   </div>
 </div>`;
 }
