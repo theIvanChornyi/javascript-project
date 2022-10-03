@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { writeRemovetIngridientFunction } from './ingridients';
 
 export function openIngridientInfoModal(selector) {
   const favoriteBtn = document.querySelector(selector);
@@ -30,7 +31,7 @@ async function getIngridient(IngrdName) {
   if (document.querySelector('.fav-ing')) {
     document.body.classList.add('disable-scroll');
   }
-
+  writeRemovetIngridientFunction('[data-ingr]');
   closeBtn.addEventListener('click', closeMoreModal);
   backdrop.addEventListener('click', closeBybackdrop);
 }
@@ -71,7 +72,7 @@ async function marcup({
     </button>
   ${string}
     <div class="ingred__modal-btn">
-        <button type="button" class="modal__btnIng modal__btnJS" data-ingridientname='${idIngredient}'>Add to favorite
+        <button type="button" class="modal__btnIng modal__btnJS" data-ingr='add-to-fav' data-ingridientname='${idIngredient}'>Add to favorite
         </button>
     </div>
     </div>

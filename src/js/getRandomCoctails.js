@@ -1,7 +1,4 @@
 import axios from 'axios';
-import { auth } from '../servise/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
-
 import { writeRemovetCoctaileFunction } from '../coctails';
 
 import { openCoctaileInfoModal } from './modal-coctails';
@@ -49,10 +46,6 @@ function getUniqueObj() {
     const data = drink.data.drinks[0];
     createCardMarkup(data);
   });
-
-  // console.log('rundomDrinks', randomDrinks);
-  // console.log('unique', cocktailsUnique);
-
   return cocktailsUnique;
 }
 

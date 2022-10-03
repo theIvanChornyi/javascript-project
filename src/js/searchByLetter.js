@@ -1,5 +1,4 @@
 import { cocktailsList } from './getRandomCoctails';
-import { wrireRemovetCoctaileFunction } from '../coctails';
 
 import Notiflix from 'notiflix';
 import axios from 'axios';
@@ -52,7 +51,6 @@ async function cocktailData(letter) {
       } else {
         const drinkU = await cocktailMarkupList(data.drinks);
         cocktailsList.innerHTML = await drinkU.join('');
-        // wrireRemovetCoctaileFunction('[data-cocktaileId]');
         titleRef.textContent = 'Searching results';
       }
     } catch (error) {}

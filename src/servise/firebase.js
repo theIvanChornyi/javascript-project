@@ -28,54 +28,31 @@ export const quitAcc = () => {
 
 onAuthStateChanged(auth, user => {
   getDataArrfromDb(user, '/coctailes', 'cockteileId', parseFavCoctails);
-  getDataArrfromDb(user, '/ingridients', 'ingredientName', parseFavIngridients);
+  getDataArrfromDb(user, '/ingredients', 'ingredientName', parseFavIngridients);
   userIn('enable');
   if (!user) {
     userIn('disable');
   }
-  // writeUserIngridients(user?.uid, 'Vodka', { ingredientName: 'vodka' });
 });
 
-export function writeUserData(userId, cockteileId, way, data = {}) {
+export function writeUserData(userId, elementId, way, data = {}) {
   if (userId) {
-    set(ref(database, `${userId}/${way}/` + cockteileId), data);
+    set(ref(database, `${userId}/${way}/` + elementId), data);
   }
 }
-export function removeUserData(userId, cockteileId, way, data = {}) {
+export function removeUserData(userId, elementId, way, data = {}) {
   if (userId) {
-    remove(ref(database, `${userId}/${way}/` + cockteileId), data);
+    remove(ref(database, `${userId}/${way}/` + elementId), data);
   }
 }
-
-// export function writeUserCoctaile(userId, cockteileId, data = {}) {
-//   if (userId) {
-//     set(ref(database, `${userId}/coctailes/` + cockteileId), data);
-//   }
-// }
-// export function removeUserCoctaile(userId, cockteileId, data = {}) {
-//   if (userId) {
-//     remove(ref(database, `${userId}/coctailes/` + cockteileId), data);
-//   }
-// }
-
-// export function writeUserIngridients(userId, ingridientName, data = {}) {
-//   if (userId) {
-//     set(ref(database, `${userId}/ingridients/` + ingridientName), data);
-//   }
-// }
-// export function removeUserIngridients(userId, ingridientName, data = {}) {
-//   if (userId) {
-//     remove(ref(database, `${userId}/ingridients/` + ingridientName), data);
-//   }
-// }
 
 export function getDataArrfromDb(user, way, searchKey, callback) {
   onValue(ref(database, user?.uid + way), snapshot => {
     const data = snapshot.val();
     if (data) {
       const favoriteIngridientsRawArr = Object.values(data);
-      const favoditeArr = favoriteIngridientsRawArr.map(id => id[searchKey]);
-      callback(favoditeArr);
+      const favoriteArr = favoriteIngridientsRawArr.map(id => id[searchKey]);
+      callback(favoriteArr);
     }
   });
 }
