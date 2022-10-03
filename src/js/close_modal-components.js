@@ -54,7 +54,7 @@ async function marcup({
   <div class="description__backdrop">
   <div class="description">
   <div class="wrapper_ingrd">
-    <button type="button" autofocus class="btn--close" data-modal="close-cocktail">
+    <button type="button" autofocus class="btn--close" data-modal="close-ingred">
     </button>
   ${string}
     <div class="ingred__modal-btn">
