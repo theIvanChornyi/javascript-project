@@ -3,34 +3,38 @@ import { wrireRemovetCoctaileFunction } from '../coctails';
 import { openIngridientInfoModal } from './close_modal-components';
 
 export function openCoctaileInfoModal(selector) {
-  const favoriteBtn = document.querySelectorAll(selector);
-  favoriteBtn.forEach(btn => btn.addEventListener('click', showModal));
+  const favoriteBtn = document.querySelector(selector);
+  favoriteBtn?.addEventListener('click', showModal);
 }
 
 const modalAnc = document.querySelector('.modal__description');
 
 async function showModal(e) {
-  const coctaileId = e.target.dataset.moreid;
-  const response = await axios.get(
-    `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${coctaileId}`
-  );
-  const dataObj = await response.data.drinks[0];
-  const markupString = await objToString(dataObj);
+  const typeOfBtn = e.target.dataset.open;
+  console.log(e.target.dataset.open);
+  if (typeOfBtn === 'open-modal-description') {
+    const coctaileId = e.target.dataset.moreid;
+    const response = await axios.get(
+      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${coctaileId}`
+    );
+    const dataObj = await response.data.drinks[0];
+    const markupString = await objToString(dataObj);
 
-  modalAnc.insertAdjacentHTML('beforeend', markupString);
-  document.body.classList.add('disable-scroll');
-  openIngridientInfoModal();
+    modalAnc.insertAdjacentHTML('beforeend', markupString);
+    document.body.classList.add('disable-scroll');
+    openIngridientInfoModal();
 
-  const closeBtn = modalAnc.querySelector('.btn--close');
-  const addFavBtn = modalAnc.querySelector('.modal__btnJS');
-  const backdrop = modalAnc.querySelector('.backdrop__cocktail');
+    const closeBtn = modalAnc.querySelector('.btn--close');
+    const addFavBtn = modalAnc.querySelector('.modal__btnJS');
+    const backdrop = modalAnc.querySelector('.backdrop__cocktail');
 
-  backdrop.addEventListener('click', closeBybackdrop);
+    backdrop.addEventListener('click', closeBybackdrop);
 
-  addFavBtn.focus();
-  wrireRemovetCoctaileFunction('.modal__btnJS');
-  document.addEventListener('keydown', closeMoreModalByKeyboard);
-  closeBtn.addEventListener('click', closeMoreModal);
+    addFavBtn.focus();
+    wrireRemovetCoctaileFunction('.modal__btnJS');
+    document.addEventListener('keydown', closeMoreModalByKeyboard);
+    closeBtn.addEventListener('click', closeMoreModal);
+  }
 }
 
 function closeBybackdrop(e) {

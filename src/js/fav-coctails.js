@@ -23,7 +23,7 @@ export async function parseFavCoctails(array) {
       favCoctailesList.innerHTML = htmlStringMarkup;
       removeFromFav();
     }
-    openCoctaileInfoModal('.gallery__btn-load-more');
+    openCoctaileInfoModal('.favorite__coctails');
   }
 }
 
@@ -34,7 +34,7 @@ function getHtmlString({ idDrink, strDrinkThumb, strDrink }) {
      <div class='gallery__card_thumb'>
      <h3 class='gallery__card-name'>${strDrink}</h3>
      <div class='btn__box'>
-     <button type='button' class='gallery__btn-load-more' data-moreid='${idDrink}'>Learn more</button>
+     <button type='button' class='gallery__btn-load-more' data-open='open-modal-description' data-moreid='${idDrink}'>Learn more</button>
     <button type='button' class='gallery__btn-add-to-fav' data-add='add-to-fav' data-cocktaileId='${idDrink}'>Remove</button>
       </div>
      </div>
