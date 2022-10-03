@@ -2,7 +2,7 @@
   overflow: hidden;
   z-index: 80;
   max-width: 822px;
-  width: calc(100% - 10px);
+  min-width: 320px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -14,7 +14,15 @@
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  // background-color: #ffffff;
+ @media screen and (min-width: 480px){
+  width: 420px;
+ }
+ @media screen and (min-width: 768px) {
+   width: 700px;
+ }
+ @media screen and (min-width: 1280px) {
+   width: 822px;
+ }
 }
 
 .description__backdrop {
