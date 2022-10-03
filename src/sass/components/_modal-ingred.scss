@@ -1,56 +1,6 @@
-// .modal__description {
-//   position: absolute;
-//   z-index: 6;
-// }
-
 .description {
-  // overflow-y: auto;
-
-  // &::-webkit-scrollbar {
-  //   width: 5px;
-  //   transform: translateX(-5px);
-  // }
-
-  // &::-webkit-scrollbar-track {
-  //   border-radius: 10px;
-  // }
-
-  // &::-webkit-scrollbar-thumb {
-  //   background-color: #fd5103;
-  //   border-radius: 10px;
-  // }
-
-  // &::-webkit-scrollbar-thumb:hover {
-  //   background-color: #fd5103;
-  // }
-
-  // background: #fff;
-  // overflow: overlay;
-  // flex-direction: column;
-  // justify-content: space-between;
-  // display: flex;
-  // position: absolute;
-  // top: 50%;
-  // left: 50%;
-  // transform: translate(-50%, -50%);
-  // box-shadow: 0 1px 3px #0000001f, 0 1px 1px #00000024, 0 2px 1px #0003;
-  // min-width: 320px;
-  // width: 100%;
-  // height: 90vh;
-  // // height: 956px;
-  // padding-top: 40px;
-  // padding-bottom: 40px;
-  // padding-left: 20px;
-  // padding-right: 20px;
-
-  // @media screen and (min-width: 768px) {
-  //   width: 720px;
-  //   height: 90vh;
-  //   padding-right: 32px;
-  // }
-
   overflow: hidden;
-  z-index: 55;
+  z-index: 80;
   max-width: 822px;
   width: calc(100% - 10px);
   position: fixed;
@@ -89,22 +39,6 @@
 }
 
 .description__button__close {
-  // position: absolute;
-  // top: 8px;
-  // right: 8px;
-  // width: 30px;
-  // height: 30px;
-  // border: none;
-  // border-radius: 50%;
-  // // display: flex;
-  // // justify-content: center;
-  // // align-items: center;
-  // background-color: transparent;
-
-  // &:hover {
-  //   cursor: pointer;
-  // }
-
   object-fit: contain;
   fill: #000000;
   background-color: rgba(0, 0, 0, 0);
@@ -142,20 +76,6 @@
   text-transform: uppercase;
 }
 
-// .description__category::before {
-//   @media screen and (min-width: 768px) {
-//     content: '';
-
-//     width: 100%;
-//     height: 1px;
-//     background-color: #fd5103;
-//     display: inline-block;
-//     position: absolute;
-//     top: 169px;
-//     left: 0px;
-//   }
-// }
-
 .description__characteristic {
   padding-left: 28px;
   padding-right: 28px;
@@ -189,31 +109,6 @@
   order: 4;
 }
 .modal__btnIng {
-  // position: absolute;
-  // right: 16px;
-  // bottom: -126px;
-
-  // background: #fd5103;
-  // font-weight: 400;
-  // font-size: 20px;
-  // line-height: 1.2;
-  // letter-spacing: 0.02em;
-  // color: #d9d9d9;
-  // border: transparent;
-  // border-radius: 4px;
-  // text-align: center;
-
-  // @media screen and (min-width: 768px) {
-  //   width: max-content;
-
-  //   position: absolute;
-  //   left: 28px;
-  //   bottom: 28px;
-  // }
-
-  // transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  // padding: 12px 24px;
   min-width: 185;
   height: 48px;
   margin-bottom: 28px;
