@@ -1,5 +1,3 @@
-// import './sass/index.scss'
-
 import './js/modal-coctails';
 import './js/close_modal-components';
 
@@ -9,14 +7,10 @@ import './js/authorization-button';
 import './js/theme-change';
 import './index';
 
-import './js/getCocktailOption';
-
 import './js/getRandomCoctails';
 
 import './js/searchByInput';
 import './js/searchByLetter';
-
-import './js/localstorage';
 
 import './js/whynot';
 
