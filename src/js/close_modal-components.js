@@ -41,7 +41,10 @@ async function marcup({
     string += `<h3 class="description__category">${strType}</h3>`;
   }
   if (strDescription) {
-    string += `<p class="description__characteristic">${strDescription.substring(0, 404)}</p>`;
+    string += `<p class="description__characteristic">${strDescription.substring(
+      0,
+      404
+    )}</p>`;
   }
   if (strType) {
     string += `<li class="description__list">✶ Type: ${strType}</li>`;
@@ -52,7 +55,7 @@ async function marcup({
   return `
 
   <div class="description__backdrop">
-  <div class="description">
+  <div class="description ${localStorage.getItem('theme')}">
   <div class="wrapper_ingrd">
     <button type="button" autofocus class="btn--close" data-modal="close-ingred">
     </button>
@@ -63,6 +66,5 @@ async function marcup({
     </div>
     </div>
     </div>
-  </div>`
-;
+  </div>`;
 }
