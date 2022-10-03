@@ -3,7 +3,7 @@ import { removeUserCoctaile, auth } from '../servise/firebase';
 import { openCoctaileInfoModal } from './modal-coctails';
 import { onAuthStateChanged } from 'firebase/auth';
 
-const preloader = document.querySelector('.preloader-fav-coc');
+const preloader = document.querySelector('.loader');
 const favCoctailesList = document.querySelector('.favorite__coctails');
 
 export async function parseFavCoctails(array) {
