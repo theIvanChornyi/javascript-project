@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { removeUserIngridients, auth } from '../servise/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { openIngridientInfoModal } from './close_modal-components';
 
 const preloader = document.querySelector('.preloader-fav-coc');
 const favIngridientsList = document.querySelector('.f-ing_blocks');
@@ -19,9 +20,9 @@ export async function parseFavIngridients(array) {
       .join('');
     if (favIngridientsList) {
       favIngridientsList.innerHTML = htmlStringMarkup;
-      removeFromFavIngr();
+      // removeFromFavIngr();
     }
-    // openCoctaileInfoModal('.gallery__btn-load-more');
+    openIngridientInfoModal('.f-ing_blocks');
   }
 }
 
@@ -38,7 +39,7 @@ function getHtmlString({ strIngredient, strType, strABV }) {
           <p class="f-ing_text">${strType}</p>
           <div class="${string} f-ing-indicator"></div>
           <div class="f-ing_btn">
-            <button type="button" class="f-ing_btn-add"  data-ingridientname='${strIngredient}'>Learn More</button>
+            <button type="button" class="f-ing_btn-add" data-open='open-ingridient-description'  data-ingridientname='${strIngredient}'>Learn More</button>
             <button type="button" class="f-ing_btn-rem" data-ingridientname='${strIngredient}'>Remove</button>
           </div>
         </li>`;

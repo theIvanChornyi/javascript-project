@@ -6,7 +6,9 @@ export function openIngridientInfoModal(selector) {
 }
 
 function openModal(e) {
-  const ingridientItem = e.target.closest('.ingredient__item').dataset;
+  const ingridientItem = e.target.closest(
+    '[data-open="open-ingridient-description"]'
+  ).dataset;
 
   if (ingridientItem?.open === 'open-ingridient-description') {
     getIngridient(ingridientItem?.ingridientname);
@@ -19,10 +21,15 @@ async function getIngridient(IngrdName) {
   );
   const objectData = await request.data.ingredients[0];
   const createMarkup = await marcup(objectData);
-  const DOM = document.querySelector('.backdrop__cocktail');
+  const DOM =
+    document.querySelector('.backdrop__cocktail') ??
+    document.querySelector('.fav-ing');
   DOM.insertAdjacentHTML('beforeend', createMarkup);
   const backdrop = document.querySelector('.description__backdrop');
   const closeBtn = backdrop.querySelector('[data-modal="close-ingred"]');
+  if (document.querySelector('.fav-ing')) {
+    document.body.classList.add('disable-scroll');
+  }
 
   closeBtn.addEventListener('click', closeMoreModal);
   backdrop.addEventListener('click', closeBybackdrop);
@@ -75,9 +82,15 @@ async function marcup({
 export function closeBybackdrop(e) {
   if (e.currentTarget === e.target) {
     e.target.remove();
+    if (document.querySelector('.fav-ing')) {
+      document.body.classList.remove('disable-scroll');
+    }
   }
 }
 
 function closeMoreModal(e) {
   e.currentTarget.closest('.description__backdrop').remove();
+  if (document.querySelector('.fav-ing')) {
+    document.body.classList.remove('disable-scroll');
+  }
 }

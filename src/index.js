@@ -20,7 +20,6 @@ import './js/authorization-button';
 import './coctails';
 
 import './js/fav-coctails';
-
 import './js/fav-ingridients';
 
 import './js/btnUp';
