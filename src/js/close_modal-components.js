@@ -41,24 +41,28 @@ async function marcup({
     string += `<h3 class="description__category">${strType}</h3>`;
   }
   if (strDescription) {
-    string += `<p class="description__characteristic">
-      ${strDescription.substring(0, 404)}
-    </p>`;
+    string += `<p class="description__characteristic">${strDescription.substring(0, 404)}</p>`;
   }
   if (strType) {
-    string += `<li class="description__list"><span class="description__accent">&#10038</span> Type: ${strType}</li>`;
+    string += `<li class="description__list">✶ Type: ${strType}</li>`;
   }
   if (strABV) {
-    string += `<li class="description__list"><span class="description__accent">&#10038</span> Alcohol by volume: ${strABV}</li>`;
+    string += `<li class="description__list">✶ Alcohol by volume: ${strABV}</li>`;
   }
   return `
 
+  <div class="description__backdrop">
   <div class="description">
-    <button type="button" autofocus class="description__button__close" data-modal="close-cocktail">
+  <div class="wrapper_ingrd">
+    <button type="button" autofocus class="btn--close" data-modal="close-cocktail">
     </button>
   ${string}
-  </div>
-        <div class="cocktail__modal-btn">
-        <button type="button" class="description__favoriteBt modal__btnJS" data-cocktaileid='${idIngredient}'>Add to favorite</button>
-      </div>`;
+    <div class="ingred__modal-btn">
+        <button type="button" class="modal__btnIng modal__btnJS" data-ingridientname='${idIngredient}'>Add to favorite
+        </button>
+    </div>
+    </div>
+    </div>
+  </div>`
+;
 }
