@@ -1,13 +1,19 @@
 import axios from 'axios';
 
-export function openIngridientInfoModal() {
-  const favoriteBtn = document.querySelectorAll('[data-ingridientname]');
-  favoriteBtn.forEach(btn => btn.addEventListener('click', openModal));
+export function openIngridientInfoModal(selector) {
+  const favoriteBtn = document.querySelector(selector);
+  favoriteBtn?.addEventListener('click', openModal);
 }
 
 function openModal(e) {
-  const IngrdName = e.currentTarget.dataset.ingridientname;
-  getIngridient(IngrdName);
+  const typeOfBtn = e.target.dataset;
+  const ingridientItem = e.target.closest('.ingredient__item').dataset;
+
+  if (ingridientItem?.open === 'open-ingridient-description') {
+    console.log('here');
+    getIngridient(ingridientItem?.ingridientname);
+  }
+
   // closeRef.addEventListener('click', () => {
   //   modalRef.classList.add('visually-hidden');
   // });
@@ -41,7 +47,10 @@ async function marcup({
     string += `<h3 class="description__category">${strType}</h3>`;
   }
   if (strDescription) {
-    string += `<p class="description__characteristic">${strDescription.substring(0, 404)}</p>`;
+    string += `<p class="description__characteristic">${strDescription.substring(
+      0,
+      404
+    )}</p>`;
   }
   if (strType) {
     string += `<li class="description__list">✶ Type: ${strType}</li>`;
@@ -63,6 +72,5 @@ async function marcup({
     </div>
     </div>
     </div>
-  </div>`
-;
+  </div>`;
 }

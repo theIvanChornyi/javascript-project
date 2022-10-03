@@ -11,7 +11,6 @@ const modalAnc = document.querySelector('.modal__description');
 
 async function showModal(e) {
   const typeOfBtn = e.target.dataset.open;
-  console.log(e.target.dataset.open);
   if (typeOfBtn === 'open-modal-description') {
     const coctaileId = e.target.dataset.moreid;
     const response = await axios.get(
@@ -22,7 +21,7 @@ async function showModal(e) {
 
     modalAnc.insertAdjacentHTML('beforeend', markupString);
     document.body.classList.add('disable-scroll');
-    openIngridientInfoModal();
+    openIngridientInfoModal('.ingredients');
 
     const closeBtn = modalAnc.querySelector('.btn--close');
     const addFavBtn = modalAnc.querySelector('.modal__btnJS');
@@ -46,7 +45,7 @@ function closeBybackdrop(e) {
 
 function closeMoreModalByKeyboard(e) {
   if (e.code === 'Escape') {
-    document.querySelector('.backdrop__cocktail').remove();
+    document.querySelector('.backdrop__cocktail')?.remove();
     document.body.classList.remove('disable-scroll');
   }
 }
@@ -69,7 +68,7 @@ function objToString(obj) {
   }
   const stringLi = ingridients
     .map(([ingridient, amount]) => {
-      return `<li class="ingredient__item" data-ingridientname='${ingridient}'>
+      return `<li class="ingredient__item" data-open='open-ingridient-description' data-ingridientname='${ingridient}'>
               <span class="ingredient__accent">✶</span>
               <span>${amount}</span>
               <a class="link ingredient-link"
@@ -96,7 +95,7 @@ function objToString(obj) {
           <h2 class="cocktail__name cocktail__name--big">${strDrink}</h2>
           <h4 class="recipe__title">INGREDIENTS</h4>
           <p class="cocktail__text">Per cocktail</p>
-          <ul class="ingredient">
+          <ul class="ingredients">
            ${stringLi}
             </li>
           </ul>
