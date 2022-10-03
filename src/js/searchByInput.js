@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { mobilMenuRef } from './header';
+import { checkedBtns } from '../servise/firebase';
 import { sorryText } from './searchByLetter';
 
 import {
@@ -47,6 +48,17 @@ function fetchCockteilByName(name) {
     } else {
       apologNotShown();
       drinks.map(drink => createCardMarkup(drink));
+      checkedBtns(
+        '[data-cocktaileid]',
+        '/coctailes',
+        'cocktaileid',
+        'data-add',
+        {
+          atrOnDel: 'remove-to-fav',
+          atrOnAdd: 'add-to-fav',
+        },
+        { contOnDel: 'remove', ContOnAdd: 'add to' }
+      );
     }
   });
 

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { writeRemovetIngridientFunction } from './ingridients';
+import { checkedBtns } from '../servise/firebase';
 
 export function openIngridientInfoModal(selector) {
   const favoriteBtn = document.querySelector(selector);
@@ -32,6 +33,17 @@ async function getIngridient(IngrdName) {
     document.body.classList.add('disable-scroll');
   }
   writeRemovetIngridientFunction('[data-ingr]');
+  checkedBtns(
+    '[data-ingr]',
+    '/ingredients',
+    'ingridientname',
+    'data-ingr',
+    {
+      atrOnDel: 'remove-to-fav',
+      atrOnAdd: 'add-to-fav',
+    },
+    { contOnDel: 'Remove from favorite', ContOnAdd: 'Add to favorite' }
+  );
   closeBtn.addEventListener('click', closeMoreModal);
   backdrop.addEventListener('click', closeBybackdrop);
 }

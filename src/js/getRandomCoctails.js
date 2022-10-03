@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { checkedBtns } from '../servise/firebase';
 import { writeRemovetCoctaileFunction } from '../coctails';
-
 import { openCoctaileInfoModal } from './modal-coctails';
 
 export const cocktailsList = document.querySelector('.gallery__cards');
@@ -24,6 +24,18 @@ async function fetchRandomCockteil(n) {
     throw new Error(error);
   }
   getUniqueObj();
+  checkedBtns(
+    '[data-cocktaileid]',
+    '/coctailes',
+    'cocktaileid',
+    'data-add',
+    {
+      atrOnDel: 'remove-to-fav',
+      atrOnAdd: 'add-to-fav',
+    },
+    { contOnDel: 'remove', ContOnAdd: 'add to' }
+  );
+
   openCoctaileInfoModal('.gallery__cards');
   writeRemovetCoctaileFunction('.gallery__cards');
 }

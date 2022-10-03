@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { writeRemovetCoctaileFunction } from '../coctails';
 import { openIngridientInfoModal } from './close_modal-components';
+import { checkedBtns } from '../servise/firebase';
 
 export function openCoctaileInfoModal(selector) {
   const favoriteBtn = document.querySelector(selector);
   favoriteBtn?.addEventListener('click', showModal);
 }
-
 const modalAnc = document.querySelector('.modal__description');
 
 async function showModal(e) {
@@ -20,6 +20,17 @@ async function showModal(e) {
     const markupString = await objToString(dataObj);
 
     modalAnc.insertAdjacentHTML('beforeend', markupString);
+    checkedBtns(
+      '.modal__btnJS',
+      '/coctailes',
+      'cocktaileid',
+      'data-add',
+      {
+        atrOnDel: 'remove-to-fav',
+        atrOnAdd: 'add-to-fav',
+      },
+      { contOnDel: 'Remove from favorite', ContOnAdd: 'Add to favorite' }
+    );
     document.body.classList.add('disable-scroll');
     openIngridientInfoModal('.ingredients');
     writeRemovetCoctaileFunction('.modal__cocktail');
