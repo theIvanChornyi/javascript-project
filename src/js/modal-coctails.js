@@ -79,7 +79,9 @@ function objToString(obj) {
     .join('');
   return `<div class="backdrop__cocktail" data-modal>
   <div class="modal__cocktail ${localStorage.getItem('theme')}">
-    <button type="button" autofocus class="btn--close" data-modal="close-cocktail">
+    <button type="button" autofocus class="btn--close" data-modal="close-cocktail"><span class="btn--close--cross ${localStorage.getItem(
+      'theme'
+    )}">&#215</span>
     </button>
     <h2 class="cocktail__name cocktail__name--mobile">${strDrink}</h2>
     <div class="modal__form">

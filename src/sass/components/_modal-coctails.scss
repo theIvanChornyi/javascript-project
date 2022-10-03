@@ -82,27 +82,32 @@
     left: 10px;
   }
 
-  &:before,
-  &:after {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 1px;
-    background: black;
-  }
+  // &:before,
+  // &:after {
+  //   content: '';
+  //   position: absolute;
+  //   width: 24px;
+  //   height: 1px;
+  //   background: black;
+  // }
 
-  &:before {
-    transform: rotate(45deg);
-  }
+  // &:before {
+  //   transform: rotate(45deg);
+  // }
 
-  &:after {
-    transform: rotate(-45deg);
-  }
+  // &:after {
+  //   transform: rotate(-45deg);
+  // }
 }
-
+.btn--close--cross {
+  cursor: pointer;
+  display: block;
+  font-size: 39px;
+}
 .cocktail__name {
   font-family: 'Roboto';
   font-style: normal;
+  margin-top: 15px;
   margin-bottom: 20px;
   font-weight: 900;
   font-size: 32px;
@@ -177,7 +182,7 @@
   line-height: 1.5;
   text-align: left;
   letter-spacing: 0.03em;
-  color: #202025;
+  color: inherit;
 }
 .recipe__wrapper {
   @media (min-width: 768px) {
