@@ -51,8 +51,7 @@ async function cocktailData(letter) {
         );
         throw new Error('response');
       } else {
-        const markupDrink = await drinksLetterCocktail(data.drinks);
-        const drinkU = await cocktailMarkupList(markupDrink);
+        const drinkU = await cocktailMarkupList(data.drinks);
         cocktailsList.innerHTML = await drinkU.join('');
         titleRef.textContent = 'Searching results';
       }
@@ -70,24 +69,6 @@ async function getCocktailByLetter(letter) {
   } catch (error) {
     Notiflix.Notify.failure('Ooops, error!');
   }
-}
-
-async function drinksLetterCocktail(arr) {
-  let drinks = [];
-  if (document.documentElement.clientWidth >= 1280) {
-    drinks = arr.splice(0, 9);
-  } else if (
-    document.documentElement.clientWidth >= 768 &&
-    document.documentElement.clientWidth < 1280
-  ) {
-    drinks = arr.splice(0, 6);
-  } else if (
-    document.documentElement.clientWidth > 0 &&
-    document.documentElement.clientWidth < 768
-  ) {
-    drinks = arr.splice(0, 3);
-  }
-  return drinks;
 }
 
 async function cocktailMarkupList(arr) {
