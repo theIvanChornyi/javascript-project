@@ -54,6 +54,8 @@ async function cocktailData(letter) {
         const markupDrink = await drinksLetterCocktail(data.drinks);
         const drinkU = await cocktailMarkupList(markupDrink);
         cocktailsList.innerHTML = await drinkU.join('');
+        wrireRemovetCoctaileFunction('[data-cocktaileId]');
+        openCoctaileInfoModal('[data-moreId]');
         titleRef.textContent = 'Searching results';
       }
     } catch (error) {}
