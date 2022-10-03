@@ -8,7 +8,7 @@ export function openIngridientInfoModal(selector) {
 function openModal(e) {
   const ingridientItem = e.target.closest(
     '[data-open="open-ingridient-description"]'
-  ).dataset;
+  )?.dataset;
 
   if (ingridientItem?.open === 'open-ingridient-description') {
     getIngridient(ingridientItem?.ingridientname);

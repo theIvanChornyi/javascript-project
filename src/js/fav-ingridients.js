@@ -20,9 +20,16 @@ export async function parseFavIngridients(array) {
       .join('');
     if (favIngridientsList) {
       favIngridientsList.innerHTML = htmlStringMarkup;
-      // removeFromFavIngr();
     }
     openIngridientInfoModal('.f-ing_blocks');
+    const favIngrList = document.querySelector('.f-ing_blocks');
+    favIngrList.addEventListener('click', removeFromFavIngr);
+    if (favIngrList.childElementCount < 1) {
+      favIngrList.removeEventListener('click', removeFromFavIngr);
+    } else {
+      favIngrList.addEventListener('click', removeFromFavIngr);
+    }
+    console.log(favIngrList.childElementCount);
   }
 }
 
@@ -40,27 +47,19 @@ function getHtmlString({ strIngredient, strType, strABV }) {
           <div class="${string} f-ing-indicator"></div>
           <div class="f-ing_btn">
             <button type="button" class="f-ing_btn-add" data-open='open-ingridient-description'  data-ingridientname='${strIngredient}'>Learn More</button>
-            <button type="button" class="f-ing_btn-rem" data-ingridientname='${strIngredient}'>Remove</button>
+            <button type="button" class="f-ing_btn-rem" data-remove='true' data-ingridientname='${strIngredient}'>Remove</button>
           </div>
         </li>`;
 }
 
-function removeFromFavIngr() {
-  const favoriteBtn = document.querySelectorAll('[data-ingridientname]');
-  favoriteBtn.forEach(btn =>
-    btn.addEventListener(
-      'click',
-      e => {
-        const ingridientName = e.target.dataset.ingridientname;
-        const card = e.target.closest('.f-ing_items');
-        card.remove();
-        onAuthStateChanged(auth, user => {
-          removeUserIngridients(user.uid, ingridientName);
-        });
-      },
-      {
-        once: true,
-      }
-    )
-  );
+function removeFromFavIngr(e) {
+  const ingridientItem = e.target.dataset;
+  if (ingridientItem?.remove) {
+    console.log(e.target.dataset);
+    const card = e.target.closest('.f-ing_items');
+    card.remove();
+    onAuthStateChanged(auth, user => {
+      removeUserIngridients(user.uid, ingridientItem?.ingridientname);
+    });
+  }
 }
