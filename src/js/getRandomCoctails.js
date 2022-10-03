@@ -64,7 +64,6 @@ if (width >= 1280) {
 
 export function createCardMarkup({ strDrinkThumb, strDrink, idDrink }) {
   const markup = `<li class='gallery__card'>
-
      <img src=${strDrinkThumb} alt=${strDrink} class='gallery__card-img'>
      <div class='gallery__card_thumb'>
      <h3 class='gallery__card-name'>${strDrink}</h3>
