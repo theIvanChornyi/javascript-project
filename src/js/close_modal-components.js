@@ -57,7 +57,9 @@ async function marcup({
   <div class="description__backdrop">
   <div class="description ${localStorage.getItem('theme')}">
   <div class="wrapper_ingrd">
-    <button type="button" autofocus class="btn--close" data-modal="close-ingred">
+    <button type="button" autofocus class="btn--close" data-modal="close-ingred"><span class="btn--close--cross ${localStorage.getItem(
+      'theme'
+    )}">&#215</span>
     </button>
   ${string}
     <div class="ingred__modal-btn">
