@@ -64,9 +64,9 @@ export function checkedBtns(
   { atrOnDel, atrOnAdd },
   { contOnDel, ContOnAdd }
 ) {
+  const checkedBtn = document.querySelectorAll(selector);
   onAuthStateChanged(auth, user => {
     if (user) {
-      const checkedBtn = document.querySelectorAll(selector);
       onValue(ref(database, user?.uid + itemsArr), snapshot => {
         const data = snapshot.val();
         if (data) {
@@ -85,6 +85,21 @@ export function checkedBtns(
           });
         }
       });
+    } else {
+      const data = localStorage.getItem(itemsArr);
+      if (data) {
+        const favoriteIngridientsRawArr = Object.keys(data);
+        checkedBtn.forEach(id => {
+          const isFav = favoriteIngridientsRawArr.includes(id.dataset[dataKey]);
+          if (isFav) {
+            id.setAttribute(attribute, atrOnDel);
+            id.textContent = contOnDel;
+          } else {
+            id.setAttribute(attribute, atrOnAdd);
+            id.textContent = ContOnAdd;
+          }
+        });
+      }
     }
   });
 }
