@@ -55,7 +55,6 @@ function getHtmlString({ strIngredient, strType, strABV }) {
 function removeFromFavIngr(e) {
   const ingridientItem = e.target.dataset;
   if (ingridientItem?.remove) {
-    console.log(e.target.dataset);
     const card = e.target.closest('.f-ing_items');
     card.remove();
     onAuthStateChanged(auth, user => {

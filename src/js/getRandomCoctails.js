@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { auth } from '../servise/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
-import { wrireRemovetCoctaileFunction } from '../coctails';
+import { writeRemovetCoctaileFunction } from '../coctails';
 
 import { openCoctaileInfoModal } from './modal-coctails';
 
@@ -26,6 +28,7 @@ async function fetchRandomCockteil(n) {
   }
   getUniqueObj();
   openCoctaileInfoModal('.gallery__cards');
+  writeRemovetCoctaileFunction('.gallery__cards');
 }
 
 function getUniqueObj() {
@@ -78,5 +81,4 @@ export function createCardMarkup({ strDrinkThumb, strDrink, idDrink }) {
   preloader?.classList.add('visually-hidden');
   preloaderFav?.classList.add('visually-hidden');
   section?.classList.remove('gallery__helper');
-  wrireRemovetCoctaileFunction('[data-cocktaileId]');
 }

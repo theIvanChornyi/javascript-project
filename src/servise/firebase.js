@@ -33,30 +33,41 @@ onAuthStateChanged(auth, user => {
   if (!user) {
     userIn('disable');
   }
-  writeUserIngridients(user?.uid, 'Vodka', { ingredientName: 'vodka' });
+  // writeUserIngridients(user?.uid, 'Vodka', { ingredientName: 'vodka' });
 });
 
-export function writeUserCoctaile(userId, cockteileId, data = {}) {
+export function writeUserData(userId, cockteileId, way, data = {}) {
   if (userId) {
-    set(ref(database, `${userId}/coctailes/` + cockteileId), data);
+    set(ref(database, `${userId}/${way}/` + cockteileId), data);
   }
 }
-export function removeUserCoctaile(userId, cockteileId, data = {}) {
+export function removeUserData(userId, cockteileId, way, data = {}) {
   if (userId) {
-    remove(ref(database, `${userId}/coctailes/` + cockteileId), data);
+    remove(ref(database, `${userId}/${way}/` + cockteileId), data);
   }
 }
 
-export function writeUserIngridients(userId, ingridientName, data = {}) {
-  if (userId) {
-    set(ref(database, `${userId}/ingridients/` + ingridientName), data);
-  }
-}
-export function removeUserIngridients(userId, ingridientName, data = {}) {
-  if (userId) {
-    remove(ref(database, `${userId}/ingridients/` + ingridientName), data);
-  }
-}
+// export function writeUserCoctaile(userId, cockteileId, data = {}) {
+//   if (userId) {
+//     set(ref(database, `${userId}/coctailes/` + cockteileId), data);
+//   }
+// }
+// export function removeUserCoctaile(userId, cockteileId, data = {}) {
+//   if (userId) {
+//     remove(ref(database, `${userId}/coctailes/` + cockteileId), data);
+//   }
+// }
+
+// export function writeUserIngridients(userId, ingridientName, data = {}) {
+//   if (userId) {
+//     set(ref(database, `${userId}/ingridients/` + ingridientName), data);
+//   }
+// }
+// export function removeUserIngridients(userId, ingridientName, data = {}) {
+//   if (userId) {
+//     remove(ref(database, `${userId}/ingridients/` + ingridientName), data);
+//   }
+// }
 
 export function getDataArrfromDb(user, way, searchKey, callback) {
   onValue(ref(database, user?.uid + way), snapshot => {

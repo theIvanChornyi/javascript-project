@@ -52,7 +52,7 @@ async function cocktailData(letter) {
       } else {
         const drinkU = await cocktailMarkupList(data.drinks);
         cocktailsList.innerHTML = await drinkU.join('');
-        wrireRemovetCoctaileFunction('[data-cocktaileId]');
+        // wrireRemovetCoctaileFunction('[data-cocktaileId]');
         titleRef.textContent = 'Searching results';
       }
     } catch (error) {}

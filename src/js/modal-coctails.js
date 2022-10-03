@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { wrireRemovetCoctaileFunction } from '../coctails';
+import { writeRemovetCoctaileFunction } from '../coctails';
 import { openIngridientInfoModal } from './close_modal-components';
 
 export function openCoctaileInfoModal(selector) {
@@ -22,6 +22,7 @@ async function showModal(e) {
     modalAnc.insertAdjacentHTML('beforeend', markupString);
     document.body.classList.add('disable-scroll');
     openIngridientInfoModal('.ingredients');
+    writeRemovetCoctaileFunction('.modal__cocktail');
 
     const closeBtn = modalAnc.querySelector('.btn--close');
     const addFavBtn = modalAnc.querySelector('.modal__btnJS');
@@ -30,7 +31,7 @@ async function showModal(e) {
     backdrop.addEventListener('click', closeBybackdrop);
 
     addFavBtn.focus();
-    wrireRemovetCoctaileFunction('.modal__btnJS');
+
     document.addEventListener('keydown', closeMoreModalByKeyboard);
     closeBtn.addEventListener('click', closeMoreModal);
   }
@@ -102,7 +103,7 @@ function objToString(obj) {
         </div>
       </div>
       <div class="cocktail__modal-btn">
-        <button type="button" class="modal__btn modal__btnJS" data-cocktaileid='${idDrink}'>Add to favorite</button>
+        <button type="button" class="modal__btn modal__btnJS" data-add="add-to-fav" data-cocktaileid='${idDrink}'>Add to favorite</button>
       </div>
     </div>
   </div>
