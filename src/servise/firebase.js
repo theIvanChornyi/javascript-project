@@ -34,8 +34,6 @@ onAuthStateChanged(auth, user => {
     userIn('disable');
   }
   writeUserIngridients(user?.uid, 'Vodka', { ingredientName: 'vodka' });
-  writeUserIngridients(user?.uid, 'Vodka', { ingredientName: 'vodka' });
-  writeUserIngridients(user?.uid, 'Vodka', { ingredientName: 'vodka' });
 });
 
 export function writeUserCoctaile(userId, cockteileId, data = {}) {
