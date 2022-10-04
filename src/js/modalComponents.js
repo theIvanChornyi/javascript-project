@@ -19,22 +19,12 @@ function openModal(e) {
 
 async function getIngridient(IngrdName) {
   try {
-    const request = await getInfoAboutIngridientByName(IngrdName);
-    const objectData = await request.data.ingredients[0];
-    const createMarkup = await sampleModalComponents(objectData);
+    const createMarkup = await getData(IngrdName);
     const DOM =
       document.querySelector('.backdrop__cocktail') ??
       document.querySelector('.fav-ing');
     DOM.insertAdjacentHTML('beforeend', createMarkup);
-    const backdrop = document.querySelector('.description__backdrop');
-    const closeBtn = backdrop.querySelector('[data-modal="close-ingred"]');
-    const favoriteBtn = backdrop.querySelector('[data-ingr]');
-    favoriteBtn.focus();
-    if (document.querySelector('.fav-ing')) {
-      document.body.classList.add('disable-scroll');
-    }
-    closeBtn.addEventListener('click', closeMoreModal);
-    backdrop.addEventListener('click', closeBybackdrop);
+    clickable();
   } catch (error) {}
   checkedBtns(
     '[data-ingr]',
@@ -64,4 +54,21 @@ function closeMoreModal(e) {
   if (document.querySelector('.fav-ing')) {
     document.body.classList.remove('disable-scroll');
   }
+}
+
+function clickable() {
+  const backdrop = document.querySelector('.description__backdrop');
+  const closeBtn = backdrop.querySelector('[data-modal="close-ingred"]');
+  const favoriteBtn = backdrop.querySelector('[data-ingr]');
+  favoriteBtn.focus();
+  if (document.querySelector('.fav-ing')) {
+    document.body.classList.add('disable-scroll');
+  }
+  closeBtn.addEventListener('click', closeMoreModal);
+  backdrop.addEventListener('click', closeBybackdrop);
+}
+async function getData(IngrdName) {
+  const request = await getInfoAboutIngridientByName(IngrdName);
+  const objectData = await request.data.ingredients[0];
+  return await sampleModalComponents(objectData);
 }

@@ -14,12 +14,7 @@ async function showModal(e) {
   const typeOfBtn = e.target.dataset.open;
   if (typeOfBtn === 'open-modal-description') {
     try {
-      const coctaileId = e.target.dataset.moreid;
-      const response = await getInfoAboutCoctail(coctaileId);
-      const dataObj = await response.data.drinks[0];
-      const markupString = await sampleModalCoctails(dataObj);
-
-      modalAnc.insertAdjacentHTML('beforeend', markupString);
+      bildPage(e, modalAnc);
       checkedBtns(
         '.modal__btnJS',
         '/coctailes',
@@ -31,20 +26,6 @@ async function showModal(e) {
         },
         { contOnDel: 'Remove from favorite', ContOnAdd: 'Add to favorite' }
       );
-      document.body.classList.add('disable-scroll');
-      openIngridientInfoModal('.ingredients');
-      writeRemovetCoctaileFunction('.modal__cocktail');
-
-      const closeBtn = modalAnc.querySelector('.btn--close');
-      const addFavBtn = modalAnc.querySelector('.modal__btnJS');
-      const backdrop = modalAnc.querySelector('.backdrop__cocktail');
-
-      backdrop.addEventListener('click', closeBybackdrop);
-
-      addFavBtn.focus();
-
-      document.addEventListener('keydown', closeMoreModalByKeyboard);
-      closeBtn.addEventListener('click', closeMoreModal);
     } catch (error) {
       console.log('error', error);
     }
@@ -68,4 +49,32 @@ function closeMoreModalByKeyboard(e) {
 export function closeMoreModal(e) {
   e.currentTarget.closest('.backdrop__cocktail').remove();
   document.body.classList.remove('disable-scroll');
+}
+
+async function getData(e) {
+  const coctaileId = e.target.dataset.moreid;
+  const response = await getInfoAboutCoctail(coctaileId);
+  const dataObj = await response.data.drinks[0];
+  return sampleModalCoctails(dataObj);
+}
+
+async function bildPage(e, where) {
+  const markupString = await getData(e);
+  where.insertAdjacentHTML('beforeend', markupString);
+  clicable();
+}
+
+function clicable() {
+  document.body.classList.add('disable-scroll');
+  openIngridientInfoModal('.ingredients');
+  writeRemovetCoctaileFunction('.modal__cocktail');
+
+  const closeBtn = modalAnc.querySelector('.btn--close');
+  const addFavBtn = modalAnc.querySelector('.modal__btnJS');
+  const backdrop = modalAnc.querySelector('.backdrop__cocktail');
+
+  addFavBtn.focus();
+  backdrop.addEventListener('click', closeBybackdrop);
+  document.addEventListener('keydown', closeMoreModalByKeyboard);
+  closeBtn.addEventListener('click', closeMoreModal);
 }

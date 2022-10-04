@@ -14,14 +14,8 @@ export async function parseFavIngridients(array) {
     preloader?.classList.remove('visually-hidden');
     const response = await Promise.all(getIngridientsData);
     if (response.length > 0) {
-      const responseData = await response
-        .filter(ingr => ingr.data.ingredients)
-        .map(obj => obj.data.ingredients[0]);
-      const htmlStringMarkup = responseData
-        .map(obg => sampleFavIngr(obg))
-        .join('');
       if (favIngridientsList) {
-        favIngridientsList.innerHTML = htmlStringMarkup;
+        favIngridientsList.innerHTML = getHtml(response);
       }
       openIngridientInfoModal('.f-ing_blocks');
 
@@ -46,4 +40,11 @@ function removeFromFavIngr(e) {
       removeUserData(user.uid, ingridientItem?.ingridientname, 'ingredients');
     });
   }
+}
+
+function getHtml(response) {
+  const responseData = response
+    .filter(ingr => ingr.data.ingredients)
+    .map(obj => obj.data.ingredients[0]);
+  return responseData.map(obg => sampleFavIngr(obg)).join('');
 }

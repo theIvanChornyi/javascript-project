@@ -11,12 +11,7 @@ export async function parseFavCoctails(array) {
     const getCocktailesData = await array.map(id => getInfoAboutCoctail(id));
     const response = await Promise.all(getCocktailesData);
     if (response.length > 0) {
-      const responseData = response
-        .filter(ingr => ingr.data.drinks)
-        .map(obj => obj.data.drinks[0]);
-      const htmlStringMarkup = responseData
-        .map(obg => sampleFacCoc(obg))
-        .join('');
+      const htmlStringMarkup = getHtml(response);
       if (favCoctailesList) {
         favCoctailesList.innerHTML = htmlStringMarkup;
         if (favCoctailesList?.childElementCount < 1) {
@@ -41,4 +36,11 @@ function removeFromFavCoc(e) {
       removeUserData(user.uid, ingridientItem?.cocktaileid, 'coctailes');
     });
   }
+}
+
+function getHtml(response) {
+  const responseData = response
+    .filter(ingr => ingr.data.drinks)
+    .map(obj => obj.data.drinks[0]);
+  return responseData.map(obg => sampleFacCoc(obg)).join('');
 }
