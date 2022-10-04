@@ -1,10 +1,10 @@
-import './js/modal-coctails';
-import './js/close_modal-components';
+import './js/modalCoctails';
+import './js/modalComponents';
 
 import './js/header';
-import './js/authorization-button';
+import './js/authorizationButton';
 
-import './js/theme-change';
+import './js/themeChange';
 import './index';
 
 import './js/getRandomCoctails';
@@ -14,13 +14,13 @@ import './js/searchByLetter';
 
 import './js/whynot';
 
-import './config/firebase-config';
+import './servise/config/firebaseConfig';
 import './servise/firebase';
-import './js/authorization-button';
-import './coctails';
 
-import './js/fav-coctails';
-import './js/fav-ingridients';
+import './js/coctails';
+
+import './js/favCoctails';
+import './js/favIngridients';
 
 import './js/btnUp';
 import 'animate.css';

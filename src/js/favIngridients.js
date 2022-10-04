@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { removeUserData, auth } from '../servise/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { openIngridientInfoModal } from './close_modal-components';
+import { openIngridientInfoModal } from './modalComponents';
 
 const preloader = document.querySelector('.preloader-fav-coc');
 const favIngridientsList = document.querySelector('.f-ing_blocks');
@@ -13,7 +13,9 @@ export async function parseFavIngridients(array) {
   preloader?.classList.remove('visually-hidden');
   const response = await Promise.all(getIngridientsData);
   if (response.length > 0) {
-    const responseData = await response.map(obj => obj.data.ingredients[0]);
+    const responseData = await response
+      .filter(ingr => ingr.data.ingredients)
+      .map(obj => obj.data.ingredients[0]);
     const htmlStringMarkup = responseData
       .map(obg => getHtmlString(obg))
       .join('');
@@ -23,7 +25,7 @@ export async function parseFavIngridients(array) {
     openIngridientInfoModal('.f-ing_blocks');
 
     const favIngrList = document.querySelector('.f-ing_blocks');
-    if (favIngrList?.childElementCount < 1) {
+    if (favIngrList?.childElementCount < 0) {
       favIngrList?.removeEventListener('click', removeFromFavIngr);
     } else {
       favIngrList?.addEventListener('click', removeFromFavIngr);
@@ -35,14 +37,16 @@ function getHtmlString({ strIngredient, strType, strABV, idIngredient }) {
   preloader?.classList.add('visually-hidden');
   let string = '';
   if (strABV) {
-    string += 'alcohol';
-  } else {
-    string += 'no__alcohol';
+    string += `Vol: ${strABV}°`;
   }
   return `<li class="f-ing_items">
+      <div class="f-ing_item__wrapper">
+        <div>
           <h3 class="f-ing_subtitle">${strIngredient}</h3>
-          <p class="f-ing_text">${strType}</p>
-          <div class="${string} f-ing-indicator"></div>
+          <p class="f-ing_text">${strType ?? 'Other'}</p>
+        </div>
+          <div class="f-ing-indicator">${string} </div>
+          </div>
           <div class="f-ing_btn">
             <button type="button" class="f-ing_btn-add" data-open='open-ingridient-description'  data-ingridientname='${strIngredient}'>Learn More</button>
             <button type="button" class="f-ing_btn-rem" data-remove='true' data-ingridientname='${idIngredient}'>Remove</button>

@@ -81,6 +81,15 @@
   }
 }
 
+.f-ing_item__wrapper{
+  display: flex;
+  justify-content: space-between;
+}
+.f-ing-indicator{
+  align-self: center;
+  color:#fd5103;
+  
+}
 .f-ing_subtitle {
   font-family: 'Roboto';
   font-style: normal;

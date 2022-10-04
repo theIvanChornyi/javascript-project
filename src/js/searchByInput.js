@@ -1,14 +1,8 @@
 import axios from 'axios';
 import { mobilMenuRef } from './header';
 import { checkedBtns } from '../servise/firebase';
-import { sorryText } from './searchByLetter';
 
-import {
-  createCardMarkup,
-  cocktailsList,
-  preloader,
-  section,
-} from './getRandomCoctails';
+import { createCardMarkup, cocktailsList } from './getRandomCoctails';
 const desktopFormRef = document.querySelector('.js-form-desktop');
 const mobilFormRef = document.querySelector('.js-form-mobil');
 const titleRef = document.querySelector('.gallery__title');

@@ -8,10 +8,10 @@ import {
 } from 'firebase/auth';
 import { getDatabase, set, ref, onValue, remove } from 'firebase/database';
 
-import { firebaseConfig } from '../config/firebase-config';
-import { userIn } from '../js/authorization-button';
-import { parseFavCoctails } from '../js/fav-coctails';
-import { parseFavIngridients } from '../js/fav-ingridients';
+import { firebaseConfig } from './config/firebaseConfig';
+import { userIn } from '../js/authorizationButton';
+import { parseFavCoctails } from '../js/favCoctails';
+import { parseFavIngridients } from '../js/favIngridients';
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
@@ -29,6 +29,16 @@ export const quitAcc = () => {
 onAuthStateChanged(auth, user => {
   getDataArrfromDb(user, '/coctailes', 'cockteileId', parseFavCoctails);
   getDataArrfromDb(user, '/ingredients', 'ingredientName', parseFavIngridients);
+
+  if (user) {
+    set(ref(database, `${user?.uid}/${'coctailes'}/` + 0), {
+      ingredientName: 0,
+    });
+    set(ref(database, `${user?.uid}/${'ingredients'}/` + 0), {
+      ingredientName: 0,
+    });
+  }
+
   userIn('enable');
   if (!user) {
     userIn('disable');
@@ -64,9 +74,9 @@ export function checkedBtns(
   { atrOnDel, atrOnAdd },
   { contOnDel, ContOnAdd }
 ) {
-  const checkedBtn = document.querySelectorAll(selector);
   onAuthStateChanged(auth, user => {
     if (user) {
+      const checkedBtn = document.querySelectorAll(selector);
       onValue(ref(database, user?.uid + itemsArr), snapshot => {
         const data = snapshot.val();
         if (data) {
@@ -85,21 +95,6 @@ export function checkedBtns(
           });
         }
       });
-    } else {
-      const data = localStorage.getItem(itemsArr);
-      if (data) {
-        const favoriteIngridientsRawArr = Object.keys(data);
-        checkedBtn.forEach(id => {
-          const isFav = favoriteIngridientsRawArr.includes(id.dataset[dataKey]);
-          if (isFav) {
-            id.setAttribute(attribute, atrOnDel);
-            id.textContent = contOnDel;
-          } else {
-            id.setAttribute(attribute, atrOnAdd);
-            id.textContent = ContOnAdd;
-          }
-        });
-      }
     }
   });
 }

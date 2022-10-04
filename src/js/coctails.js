@@ -1,4 +1,4 @@
-import { writeUserData, removeUserData, auth } from './servise/firebase.js';
+import { writeUserData, removeUserData, auth } from '../servise/firebase.js';
 import { onAuthStateChanged } from 'firebase/auth';
 
 async function addToFav(e) {

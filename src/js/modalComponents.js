@@ -29,10 +29,11 @@ async function getIngridient(IngrdName) {
   DOM.insertAdjacentHTML('beforeend', createMarkup);
   const backdrop = document.querySelector('.description__backdrop');
   const closeBtn = backdrop.querySelector('[data-modal="close-ingred"]');
+  const favoriteBtn = backdrop.querySelector('[data-ingr]');
+  favoriteBtn.focus();
   if (document.querySelector('.fav-ing')) {
     document.body.classList.add('disable-scroll');
   }
-  writeRemovetIngridientFunction('[data-ingr]');
   checkedBtns(
     '[data-ingr]',
     '/ingredients',
@@ -44,6 +45,7 @@ async function getIngridient(IngrdName) {
     },
     { contOnDel: 'Remove from favorite', ContOnAdd: 'Add to favorite' }
   );
+  writeRemovetIngridientFunction('[data-ingr]');
   closeBtn.addEventListener('click', closeMoreModal);
   backdrop.addEventListener('click', closeBybackdrop);
 }
@@ -76,7 +78,6 @@ async function marcup({
     string += `<li class="description__list">✶ Alcohol by volume: ${strABV}</li>`;
   }
   return `
-
   <div class="description__backdrop">
   <div class="description ${localStorage.getItem('theme')}">
   <div class="wrapper_ingrd">

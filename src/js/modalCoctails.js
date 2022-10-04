@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { writeRemovetCoctaileFunction } from '../coctails';
-import { openIngridientInfoModal } from './close_modal-components';
+import { writeRemovetCoctaileFunction } from './coctails';
+import { openIngridientInfoModal } from './modalComponents';
 import { checkedBtns } from '../servise/firebase';
 
 export function openCoctaileInfoModal(selector) {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { checkedBtns } from '../servise/firebase';
-import { writeRemovetCoctaileFunction } from '../coctails';
-import { openCoctaileInfoModal } from './modal-coctails';
+import { writeRemovetCoctaileFunction } from './coctails';
+import { openCoctaileInfoModal } from './modalCoctails';
 
 export const cocktailsList = document.querySelector('.gallery__cards');
 export const preloader = document.querySelector('.loader');
