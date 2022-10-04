@@ -8,10 +8,10 @@ import {
 } from 'firebase/auth';
 import { getDatabase, set, ref, onValue, remove } from 'firebase/database';
 
-import { firebaseConfig } from '../config/firebase-config';
-import { userIn } from '../js/authorization-button';
-import { parseFavCoctails } from '../js/fav-coctails';
-import { parseFavIngridients } from '../js/fav-ingridients';
+import { firebaseConfig } from './config/firebaseConfig';
+import { userIn } from '../js/authorizationButton';
+import { parseFavCoctails } from '../js/favCoctails';
+import { parseFavIngridients } from '../js/favIngridients';
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
@@ -28,33 +28,31 @@ export const quitAcc = () => {
 
 onAuthStateChanged(auth, user => {
   getDataArrfromDb(user, '/coctailes', 'cockteileId', parseFavCoctails);
-  getDataArrfromDb(user, '/ingridients', 'ingredientName', parseFavIngridients);
+  getDataArrfromDb(user, '/ingredients', 'ingredientName', parseFavIngridients);
+
+  if (user) {
+    set(ref(database, `${user?.uid}/${'coctailes'}/` + 0), {
+      ingredientName: 0,
+    });
+    set(ref(database, `${user?.uid}/${'ingredients'}/` + 0), {
+      ingredientName: 0,
+    });
+  }
+
   userIn('enable');
   if (!user) {
     userIn('disable');
   }
-  writeUserIngridients(user?.uid, 'Vodka', { ingredientName: 'vodka' });
 });
 
-export function writeUserCoctaile(userId, cockteileId, data = {}) {
+export function writeUserData(userId, elementId, way, data = {}) {
   if (userId) {
-    set(ref(database, `${userId}/coctailes/` + cockteileId), data);
+    set(ref(database, `${userId}/${way}/` + elementId), data);
   }
 }
-export function removeUserCoctaile(userId, cockteileId, data = {}) {
+export function removeUserData(userId, elementId, way, data = {}) {
   if (userId) {
-    remove(ref(database, `${userId}/coctailes/` + cockteileId), data);
-  }
-}
-
-export function writeUserIngridients(userId, ingridientName, data = {}) {
-  if (userId) {
-    set(ref(database, `${userId}/ingridients/` + ingridientName), data);
-  }
-}
-export function removeUserIngridients(userId, ingridientName, data = {}) {
-  if (userId) {
-    remove(ref(database, `${userId}/ingridients/` + ingridientName), data);
+    remove(ref(database, `${userId}/${way}/` + elementId), data);
   }
 }
 
@@ -63,8 +61,40 @@ export function getDataArrfromDb(user, way, searchKey, callback) {
     const data = snapshot.val();
     if (data) {
       const favoriteIngridientsRawArr = Object.values(data);
-      const favoditeArr = favoriteIngridientsRawArr.map(id => id[searchKey]);
-      callback(favoditeArr);
+      const favoriteArr = favoriteIngridientsRawArr.map(id => id[searchKey]);
+      callback(favoriteArr);
+    }
+  });
+}
+export function checkedBtns(
+  selector,
+  itemsArr,
+  dataKey,
+  attribute,
+  { atrOnDel, atrOnAdd },
+  { contOnDel, ContOnAdd }
+) {
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      const checkedBtn = document.querySelectorAll(selector);
+      onValue(ref(database, user?.uid + itemsArr), snapshot => {
+        const data = snapshot.val();
+        if (data) {
+          const favoriteIngridientsRawArr = Object.keys(data);
+          checkedBtn.forEach(id => {
+            const isFav = favoriteIngridientsRawArr.includes(
+              id.dataset[dataKey]
+            );
+            if (isFav) {
+              id.setAttribute(attribute, atrOnDel);
+              id.textContent = contOnDel;
+            } else {
+              id.setAttribute(attribute, atrOnAdd);
+              id.textContent = ContOnAdd;
+            }
+          });
+        }
+      });
     }
   });
 }

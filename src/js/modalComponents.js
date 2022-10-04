@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { writeRemovetIngridientFunction } from './ingridients';
+import { checkedBtns } from '../servise/firebase';
 
 export function openIngridientInfoModal(selector) {
   const favoriteBtn = document.querySelector(selector);
@@ -6,7 +8,9 @@ export function openIngridientInfoModal(selector) {
 }
 
 function openModal(e) {
-  const ingridientItem = e.target.closest('.ingredient__item').dataset;
+  const ingridientItem = e.target.closest(
+    '[data-open="open-ingridient-description"]'
+  )?.dataset;
 
   if (ingridientItem?.open === 'open-ingridient-description') {
     getIngridient(ingridientItem?.ingridientname);
@@ -19,11 +23,29 @@ async function getIngridient(IngrdName) {
   );
   const objectData = await request.data.ingredients[0];
   const createMarkup = await marcup(objectData);
-  const DOM = document.querySelector('.backdrop__cocktail');
+  const DOM =
+    document.querySelector('.backdrop__cocktail') ??
+    document.querySelector('.fav-ing');
   DOM.insertAdjacentHTML('beforeend', createMarkup);
   const backdrop = document.querySelector('.description__backdrop');
   const closeBtn = backdrop.querySelector('[data-modal="close-ingred"]');
-
+  const favoriteBtn = backdrop.querySelector('[data-ingr]');
+  favoriteBtn.focus();
+  if (document.querySelector('.fav-ing')) {
+    document.body.classList.add('disable-scroll');
+  }
+  checkedBtns(
+    '[data-ingr]',
+    '/ingredients',
+    'ingridientname',
+    'data-ingr',
+    {
+      atrOnDel: 'remove-to-fav',
+      atrOnAdd: 'add-to-fav',
+    },
+    { contOnDel: 'Remove from favorite', ContOnAdd: 'Add to favorite' }
+  );
+  writeRemovetIngridientFunction('[data-ingr]');
   closeBtn.addEventListener('click', closeMoreModal);
   backdrop.addEventListener('click', closeBybackdrop);
 }
@@ -56,7 +78,6 @@ async function marcup({
     string += `<li class="description__list">✶ Alcohol by volume: ${strABV}</li>`;
   }
   return `
-
   <div class="description__backdrop">
   <div class="description ${localStorage.getItem('theme')}">
   <div class="wrapper_ingrd">
@@ -66,7 +87,7 @@ async function marcup({
     </button>
   ${string}
     <div class="ingred__modal-btn">
-        <button type="button" class="modal__btnIng modal__btnJS" data-ingridientname='${idIngredient}'>Add to favorite
+        <button type="button" class="modal__btnIng modal__btnJS" data-ingr='add-to-fav' data-ingridientname='${idIngredient}'>Add to favorite
         </button>
     </div>
     </div>
@@ -77,9 +98,15 @@ async function marcup({
 export function closeBybackdrop(e) {
   if (e.currentTarget === e.target) {
     e.target.remove();
+    if (document.querySelector('.fav-ing')) {
+      document.body.classList.remove('disable-scroll');
+    }
   }
 }
 
 function closeMoreModal(e) {
   e.currentTarget.closest('.description__backdrop').remove();
+  if (document.querySelector('.fav-ing')) {
+    document.body.classList.remove('disable-scroll');
+  }
 }

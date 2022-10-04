@@ -3,15 +3,7 @@
 }
 
 .fav-ing {
-  min-height: 793px;
-
-  @media screen and (min-width: 768px) {
-    min-height: 759px;
-  }
-
-  @media screen and (min-width: 1280px) {
-    min-height: 587px;
-  }
+  min-height: 80vh;
 }
 
 .f-ing_title {
@@ -45,6 +37,7 @@
 .f-ing_blocks {
   margin-top: 60px;
   min-width: 100%;
+  padding-bottom: 60px;
 
   display: flex;
   flex-wrap: wrap;
@@ -57,6 +50,7 @@
     gap: 32px;
     align-items: unset;
     justify-content: unset;
+    padding-bottom: 140px;
   }
 
   @media screen and (min-width: 1280px) {
@@ -87,6 +81,15 @@
   }
 }
 
+.f-ing_item__wrapper{
+  display: flex;
+  justify-content: space-between;
+}
+.f-ing-indicator{
+  align-self: center;
+  color:#fd5103;
+  
+}
 .f-ing_subtitle {
   font-family: 'Roboto';
   font-style: normal;

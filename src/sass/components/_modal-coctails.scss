@@ -6,7 +6,6 @@
   top: 0;
   overflow-y: scroll;
   z-index: 2;
-  // left: 0;
 }
 
 .backdrop.is-hidden .modal {
@@ -19,35 +18,7 @@
   pointer-events: none;
 }
 
-.modal__cocktail {
-  // background: #fff;
-  overflow: overlay;
-  flex-direction: column;
-  justify-content: space-between;
-  display: flex;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 1px 3px #0000001f, 0 1px 1px #00000024, 0 2px 1px #0003;
-  min-width: 320px;
-  height: 90vh;
-  // height: 956px;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
-
-  @media screen and (min-width: 768px) {
-    // width: 768px;
-    height: 598px;
-    padding-right: 32px;
-  }
-}
-
 .image__wrap {
-  // width: 280px;
-  // height: 280px;
   border-radius: 4px;
   margin-bottom: 22px;
 
@@ -81,28 +52,16 @@
     top: 20px;
     left: 10px;
   }
-
-  // &:before,
-  // &:after {
-  //   content: '';
-  //   position: absolute;
-  //   width: 24px;
-  //   height: 1px;
-  //   background: black;
-  // }
-
-  // &:before {
-  //   transform: rotate(45deg);
-  // }
-
-  // &:after {
-  //   transform: rotate(-45deg);
-  // }
 }
 .btn--close--cross {
+  z-index: 2;
   cursor: pointer;
   display: block;
   font-size: 39px;
+  &:hover {
+      color: #fd5103;
+      cursor: pointer;
+    }
 }
 .cocktail__name {
   font-family: 'Roboto';
@@ -114,7 +73,6 @@
   line-height: 1.18;
   text-align: left;
   letter-spacing: 0.03em;
-  // color: #202025;
 
   &.cocktail__name--big {
     display: none;
@@ -184,13 +142,11 @@
   letter-spacing: 0.03em;
   color: inherit;
 }
-.recipe__wrapper {
-  @media (min-width: 768px) {
-    position: absolute;
-  }
-}
 
 .modal__btn {
+  display: block;
+  margin-top: 32px;
+  margin-left: auto;
   min-width: 185;
   height: 48px;
   background: #fd5103;
@@ -203,15 +159,12 @@
   border-radius: 4px;
   text-align: center;
 
-  @media (min-width: 768px) {
-    position: absolute;
-    bottom: 26px;
-    right: 28px;
-  }
+  flex-shrink: 0;
 
   transition-property: #fd5103;
   transition-duration: 250ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    @media (min-width: 768px) {margin-top: 40px;}
 }
 
 .modal__btn:hover {
@@ -226,7 +179,6 @@
 
 .cocktail__modal-btn {
   @media (min-width: 768px) {
-    // justify-content: flex-end;
     margin-bottom: 28px;
     margin-right: 28px;
     display: flex;
@@ -256,6 +208,8 @@
 }
 
 .modal__cocktail {
+  min-width: 320px;
+  max-height: 600px;
   overflow-y: auto;
 
   &::-webkit-scrollbar {
@@ -276,7 +230,6 @@
     background-color: #fd5103;
   }
 
-  //   background: #fff;
   overflow: overlay;
   flex-direction: column;
   justify-content: space-between;
@@ -286,9 +239,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0 1px 3px #0000001f, 0 1px 1px #00000024, 0 2px 1px #0003;
-  min-width: 320px;
-  height: 90vh;
-  // height: 956px;
   padding-top: 40px;
   padding-bottom: 40px;
   padding-left: 20px;

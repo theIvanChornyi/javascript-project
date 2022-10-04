@@ -1,5 +1,5 @@
 import { cocktailsList } from './getRandomCoctails';
-import { wrireRemovetCoctaileFunction } from '../coctails';
+import { checkedBtns } from '../servise/firebase';
 
 import Notiflix from 'notiflix';
 import axios from 'axios';
@@ -52,7 +52,17 @@ async function cocktailData(letter) {
       } else {
         const drinkU = await cocktailMarkupList(data.drinks);
         cocktailsList.innerHTML = await drinkU.join('');
-        wrireRemovetCoctaileFunction('[data-cocktaileId]');
+        checkedBtns(
+          '[data-cocktaileid]',
+          '/coctailes',
+          'cocktaileid',
+          'data-add',
+          {
+            atrOnDel: 'remove-to-fav',
+            atrOnAdd: 'add-to-fav',
+          },
+          { contOnDel: 'remove', ContOnAdd: 'add to' }
+        );
         titleRef.textContent = 'Searching results';
       }
     } catch (error) {}

@@ -1,8 +1,7 @@
 import axios from 'axios';
-
-import { wrireRemovetCoctaileFunction } from '../coctails';
-
-import { openCoctaileInfoModal } from './modal-coctails';
+import { checkedBtns } from '../servise/firebase';
+import { writeRemovetCoctaileFunction } from './coctails';
+import { openCoctaileInfoModal } from './modalCoctails';
 
 export const cocktailsList = document.querySelector('.gallery__cards');
 export const preloader = document.querySelector('.loader');
@@ -25,7 +24,20 @@ async function fetchRandomCockteil(n) {
     throw new Error(error);
   }
   getUniqueObj();
+  checkedBtns(
+    '[data-cocktaileid]',
+    '/coctailes',
+    'cocktaileid',
+    'data-add',
+    {
+      atrOnDel: 'remove-to-fav',
+      atrOnAdd: 'add-to-fav',
+    },
+    { contOnDel: 'remove', ContOnAdd: 'add to' }
+  );
+
   openCoctaileInfoModal('.gallery__cards');
+  writeRemovetCoctaileFunction('.gallery__cards');
 }
 
 function getUniqueObj() {
@@ -46,10 +58,6 @@ function getUniqueObj() {
     const data = drink.data.drinks[0];
     createCardMarkup(data);
   });
-
-  // console.log('rundomDrinks', randomDrinks);
-  // console.log('unique', cocktailsUnique);
-
   return cocktailsUnique;
 }
 
@@ -78,5 +86,4 @@ export function createCardMarkup({ strDrinkThumb, strDrink, idDrink }) {
   preloader?.classList.add('visually-hidden');
   preloaderFav?.classList.add('visually-hidden');
   section?.classList.remove('gallery__helper');
-  wrireRemovetCoctaileFunction('[data-cocktaileId]');
 }

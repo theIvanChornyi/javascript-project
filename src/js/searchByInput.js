@@ -1,13 +1,8 @@
 import axios from 'axios';
 import { mobilMenuRef } from './header';
-import { sorryText } from './searchByLetter';
+import { checkedBtns } from '../servise/firebase';
 
-import {
-  createCardMarkup,
-  cocktailsList,
-  preloader,
-  section,
-} from './getRandomCoctails';
+import { createCardMarkup, cocktailsList } from './getRandomCoctails';
 const desktopFormRef = document.querySelector('.js-form-desktop');
 const mobilFormRef = document.querySelector('.js-form-mobil');
 const titleRef = document.querySelector('.gallery__title');
@@ -47,6 +42,17 @@ function fetchCockteilByName(name) {
     } else {
       apologNotShown();
       drinks.map(drink => createCardMarkup(drink));
+      checkedBtns(
+        '[data-cocktaileid]',
+        '/coctailes',
+        'cocktaileid',
+        'data-add',
+        {
+          atrOnDel: 'remove-to-fav',
+          atrOnAdd: 'add-to-fav',
+        },
+        { contOnDel: 'remove', ContOnAdd: 'add to' }
+      );
     }
   });
 
