@@ -1,5 +1,6 @@
 import './js/modalCoctails';
 import './js/modalComponents';
+import './servise/apiData';
 
 import './js/header';
 import './js/authorizationButton';

@@ -1,7 +1,6 @@
-import axios from 'axios';
 import { writeRemovetIngridientFunction } from './ingridients';
 import { checkedBtns } from '../servise/firebase';
-
+import { getInfoAboutIngridientByName } from '../servise/apiData';
 export function openIngridientInfoModal(selector) {
   const favoriteBtn = document.querySelector(selector);
   favoriteBtn?.addEventListener('click', openModal);
@@ -18,22 +17,24 @@ function openModal(e) {
 }
 
 async function getIngridient(IngrdName) {
-  const request = await axios(
-    `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${IngrdName}`
-  );
-  const objectData = await request.data.ingredients[0];
-  const createMarkup = await marcup(objectData);
-  const DOM =
-    document.querySelector('.backdrop__cocktail') ??
-    document.querySelector('.fav-ing');
-  DOM.insertAdjacentHTML('beforeend', createMarkup);
-  const backdrop = document.querySelector('.description__backdrop');
-  const closeBtn = backdrop.querySelector('[data-modal="close-ingred"]');
-  const favoriteBtn = backdrop.querySelector('[data-ingr]');
-  favoriteBtn.focus();
-  if (document.querySelector('.fav-ing')) {
-    document.body.classList.add('disable-scroll');
-  }
+  try {
+    const request = await getInfoAboutIngridientByName(IngrdName);
+    const objectData = await request.data.ingredients[0];
+    const createMarkup = await marcup(objectData);
+    const DOM =
+      document.querySelector('.backdrop__cocktail') ??
+      document.querySelector('.fav-ing');
+    DOM.insertAdjacentHTML('beforeend', createMarkup);
+    const backdrop = document.querySelector('.description__backdrop');
+    const closeBtn = backdrop.querySelector('[data-modal="close-ingred"]');
+    const favoriteBtn = backdrop.querySelector('[data-ingr]');
+    favoriteBtn.focus();
+    if (document.querySelector('.fav-ing')) {
+      document.body.classList.add('disable-scroll');
+    }
+    closeBtn.addEventListener('click', closeMoreModal);
+    backdrop.addEventListener('click', closeBybackdrop);
+  } catch (error) {}
   checkedBtns(
     '[data-ingr]',
     '/ingredients',
@@ -46,8 +47,6 @@ async function getIngridient(IngrdName) {
     { contOnDel: 'Remove from favorite', ContOnAdd: 'Add to favorite' }
   );
   writeRemovetIngridientFunction('[data-ingr]');
-  closeBtn.addEventListener('click', closeMoreModal);
-  backdrop.addEventListener('click', closeBybackdrop);
 }
 
 async function marcup({

@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { checkedBtns } from '../servise/firebase';
 import { writeRemovetCoctaileFunction } from './coctails';
 import { openCoctaileInfoModal } from './modalCoctails';
+import { randomCoctail } from '../servise/apiData';
 
 export const cocktailsList = document.querySelector('.gallery__cards');
 export const preloader = document.querySelector('.loader');
@@ -14,11 +14,7 @@ let randomDrinks = [];
 async function fetchRandomCockteil(n) {
   try {
     for (let i = 0; i < n; i += 1) {
-      randomDrinks.push(
-        await axios.get(
-          `https://www.thecocktaildb.com/api/json/v1/1/random.php`
-        )
-      );
+      randomDrinks.push(await randomCoctail());
     }
   } catch (error) {
     throw new Error(error);

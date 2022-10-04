@@ -1,34 +1,33 @@
-import axios from 'axios';
 import { removeUserData, auth } from '../servise/firebase';
 import { openCoctaileInfoModal } from './modalCoctails';
 import { onAuthStateChanged } from 'firebase/auth';
+import { getInfoAboutCoctail } from '../servise/apiData';
 
 const favCoctailesList = document.querySelector('.favorite__coctails');
 
 export async function parseFavCoctails(array) {
-  const getCocktailesData = await array.map(id =>
-    axios(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
-  );
-
-  const response = await Promise.all(getCocktailesData);
-
-  if (response.length > 0) {
-    const responseData = response
-      .filter(ingr => ingr.data.drinks)
-      .map(obj => obj.data.drinks[0]);
-    const htmlStringMarkup = responseData
-      .map(obg => getHtmlString(obg))
-      .join('');
-    if (favCoctailesList) {
-      favCoctailesList.innerHTML = htmlStringMarkup;
-
-      if (favCoctailesList?.childElementCount < 1) {
-        favCoctailesList?.removeEventListener('click', removeFromFavCoc);
-      } else {
-        favCoctailesList?.addEventListener('click', removeFromFavCoc);
+  try {
+    const getCocktailesData = await array.map(id => getInfoAboutCoctail(id));
+    const response = await Promise.all(getCocktailesData);
+    if (response.length > 0) {
+      const responseData = response
+        .filter(ingr => ingr.data.drinks)
+        .map(obj => obj.data.drinks[0]);
+      const htmlStringMarkup = responseData
+        .map(obg => getHtmlString(obg))
+        .join('');
+      if (favCoctailesList) {
+        favCoctailesList.innerHTML = htmlStringMarkup;
+        if (favCoctailesList?.childElementCount < 1) {
+          favCoctailesList?.removeEventListener('click', removeFromFavCoc);
+        } else {
+          favCoctailesList?.addEventListener('click', removeFromFavCoc);
+        }
       }
+      openCoctaileInfoModal('.favorite__coctails');
     }
-    openCoctaileInfoModal('.favorite__coctails');
+  } catch (error) {
+    console.log('error', error);
   }
 }
 

@@ -1,8 +1,8 @@
 import { cocktailsList } from './getRandomCoctails';
 import { checkedBtns } from '../servise/firebase';
+import { getInfoByLetter } from '../servise/apiData';
 
 import Notiflix from 'notiflix';
-import axios from 'axios';
 
 const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
@@ -71,7 +71,7 @@ async function cocktailData(letter) {
 
 async function getCocktailByLetter(letter) {
   try {
-    const response = await axios(`${BASE_URL}search.php?f=${letter}`);
+    const response = await getInfoByLetter(letter);
     if (!response.data) {
       throw new Error(response);
     }

@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { mobilMenuRef } from './header';
 import { checkedBtns } from '../servise/firebase';
+import { gerInfoByName } from '../servise/apiData';
 
 import { createCardMarkup, cocktailsList } from './getRandomCoctails';
 const desktopFormRef = document.querySelector('.js-form-desktop');
@@ -31,12 +31,10 @@ function onFormSubmit(evt) {
 }
 // ============================================
 
-function fetchCockteilByName(name) {
-  const cocteils = axios(
-    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`
-  );
-  cocteils.then(resp => {
-    const drinks = resp.data.drinks;
+async function fetchCockteilByName(name) {
+  try {
+    const cocteils = await gerInfoByName(name);
+    const drinks = await cocteils.data.drinks;
     if (!drinks) {
       apologShown();
     } else {
@@ -54,9 +52,9 @@ function fetchCockteilByName(name) {
         { contOnDel: 'remove', ContOnAdd: 'add to' }
       );
     }
-  });
-
-  return cocteils;
+  } catch (error) {
+    console.log('error', error);
+  }
 }
 function apologNotShown() {
   titleRef.classList.remove('visually-hidden');

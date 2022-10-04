@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { writeRemovetCoctaileFunction } from './coctails';
 import { openIngridientInfoModal } from './modalComponents';
 import { checkedBtns } from '../servise/firebase';
+import { getInfoAboutCoctail } from '../servise/apiData';
 
 export function openCoctaileInfoModal(selector) {
   const favoriteBtn = document.querySelector(selector);
@@ -12,39 +12,41 @@ const modalAnc = document.querySelector('.modal__description');
 async function showModal(e) {
   const typeOfBtn = e.target.dataset.open;
   if (typeOfBtn === 'open-modal-description') {
-    const coctaileId = e.target.dataset.moreid;
-    const response = await axios.get(
-      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${coctaileId}`
-    );
-    const dataObj = await response.data.drinks[0];
-    const markupString = await objToString(dataObj);
+    try {
+      const coctaileId = e.target.dataset.moreid;
+      const response = await getInfoAboutCoctail(coctaileId);
+      const dataObj = await response.data.drinks[0];
+      const markupString = await objToString(dataObj);
 
-    modalAnc.insertAdjacentHTML('beforeend', markupString);
-    checkedBtns(
-      '.modal__btnJS',
-      '/coctailes',
-      'cocktaileid',
-      'data-add',
-      {
-        atrOnDel: 'remove-to-fav',
-        atrOnAdd: 'add-to-fav',
-      },
-      { contOnDel: 'Remove from favorite', ContOnAdd: 'Add to favorite' }
-    );
-    document.body.classList.add('disable-scroll');
-    openIngridientInfoModal('.ingredients');
-    writeRemovetCoctaileFunction('.modal__cocktail');
+      modalAnc.insertAdjacentHTML('beforeend', markupString);
+      checkedBtns(
+        '.modal__btnJS',
+        '/coctailes',
+        'cocktaileid',
+        'data-add',
+        {
+          atrOnDel: 'remove-to-fav',
+          atrOnAdd: 'add-to-fav',
+        },
+        { contOnDel: 'Remove from favorite', ContOnAdd: 'Add to favorite' }
+      );
+      document.body.classList.add('disable-scroll');
+      openIngridientInfoModal('.ingredients');
+      writeRemovetCoctaileFunction('.modal__cocktail');
 
-    const closeBtn = modalAnc.querySelector('.btn--close');
-    const addFavBtn = modalAnc.querySelector('.modal__btnJS');
-    const backdrop = modalAnc.querySelector('.backdrop__cocktail');
+      const closeBtn = modalAnc.querySelector('.btn--close');
+      const addFavBtn = modalAnc.querySelector('.modal__btnJS');
+      const backdrop = modalAnc.querySelector('.backdrop__cocktail');
 
-    backdrop.addEventListener('click', closeBybackdrop);
+      backdrop.addEventListener('click', closeBybackdrop);
 
-    addFavBtn.focus();
+      addFavBtn.focus();
 
-    document.addEventListener('keydown', closeMoreModalByKeyboard);
-    closeBtn.addEventListener('click', closeMoreModal);
+      document.addEventListener('keydown', closeMoreModalByKeyboard);
+      closeBtn.addEventListener('click', closeMoreModal);
+    } catch (error) {
+      console.log('error', error);
+    }
   }
 }
 
