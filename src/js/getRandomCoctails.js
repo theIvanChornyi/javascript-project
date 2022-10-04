@@ -1,12 +1,9 @@
-import axios from 'axios';
 import { checkedBtns } from '../servise/firebase';
 import { writeRemovetCoctaileFunction } from './coctails';
 import { openCoctaileInfoModal } from './modalCoctails';
+import { randomCoctail } from '../servise/apiData';
+import { sampleCoctaileCard } from '../MarkupSample/sampleCoctaileCard';
 
-export const cocktailsList = document.querySelector('.gallery__cards');
-export const preloader = document.querySelector('.loader');
-export const preloaderFav = document.querySelector('.preloader-fav-coc');
-export const section = document.querySelector('.section-gallery');
 const width = document.documentElement.clientWidth;
 
 let randomDrinks = [];
@@ -14,11 +11,7 @@ let randomDrinks = [];
 async function fetchRandomCockteil(n) {
   try {
     for (let i = 0; i < n; i += 1) {
-      randomDrinks.push(
-        await axios.get(
-          `https://www.thecocktaildb.com/api/json/v1/1/random.php`
-        )
-      );
+      randomDrinks.push(await randomCoctail());
     }
   } catch (error) {
     throw new Error(error);
@@ -56,7 +49,7 @@ function getUniqueObj() {
 
   cocktailsUnique.forEach(drink => {
     const data = drink.data.drinks[0];
-    createCardMarkup(data);
+    sampleCoctaileCard(data);
   });
   return cocktailsUnique;
 }
@@ -67,23 +60,4 @@ if (width >= 1280) {
   fetchRandomCockteil(6);
 } else if (width > 0 && width < 768) {
   fetchRandomCockteil(3);
-}
-
-export function createCardMarkup({ strDrinkThumb, strDrink, idDrink }) {
-  const markup = `<li class='gallery__card'>
-
-     <img src=${strDrinkThumb} alt=${strDrink} class='gallery__card-img'>
-     <div class='gallery__card_thumb'>
-     <h3 class='gallery__card-name'>${strDrink}</h3>
-     <div class='btn__box'>
-     <button type='button' class='gallery__btn-load-more' data-open='open-modal-description' data-moreId='${idDrink}'>Learn more</button>
-    <button type='button' class='gallery__btn-add-to-fav' data-add='add-to-fav' data-cocktaileId='${idDrink}'>Add to</button>
-      </div>
-     </div>
-    </li>`;
-
-  cocktailsList?.insertAdjacentHTML('beforeend', markup);
-  preloader?.classList.add('visually-hidden');
-  preloaderFav?.classList.add('visually-hidden');
-  section?.classList.remove('gallery__helper');
 }

@@ -26,25 +26,3 @@ export function writeRemovetCoctaileFunction(selector) {
 
   favoriteBtn?.addEventListener('click', addToFav);
 }
-
-// button.setAttribute('data-authorithation', value);
-
-// if (btn.textContent === 'Add to favorite') {
-//   btn.textContent = 'Remove from favorite';
-// } else {
-//   btn.textContent = 'Remove';
-// }
-// btn.classList.add('btn__svg-fav');
-// btn.addEventListener(
-//   'click',
-//   () => {
-//     removeUserData(user?.uid, cockteileId, 'coctailes');
-//     if (btn.textContent === 'Remove from favorite') {
-//       btn.textContent = 'Add to favorite';
-//     } else {
-//       btn.textContent = 'Add to';
-//     }
-//     btn.classList.remove('btn__svg-fav');
-//   },
-//   { once: true }
-// );

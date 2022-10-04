@@ -1,8 +1,11 @@
-import axios from 'axios';
 import { mobilMenuRef } from './header';
 import { checkedBtns } from '../servise/firebase';
+import { gerInfoByName } from '../servise/apiData';
+import {
+  sampleCoctaileCard,
+  cocktailsList,
+} from '../MarkupSample/sampleCoctaileCard';
 
-import { createCardMarkup, cocktailsList } from './getRandomCoctails';
 const desktopFormRef = document.querySelector('.js-form-desktop');
 const mobilFormRef = document.querySelector('.js-form-mobil');
 const titleRef = document.querySelector('.gallery__title');
@@ -12,7 +15,6 @@ desktopFormRef.addEventListener('submit', onFormSubmit);
 mobilFormRef.addEventListener('submit', onFormSubmit);
 
 let dataFromInput = '';
-// ============================================
 function onFormSubmit(evt) {
   evt.preventDefault();
   mobilMenuRef.classList.add('is-hidden');
@@ -29,19 +31,16 @@ function onFormSubmit(evt) {
 
   titleRef.scrollIntoView({ behavior: 'smooth' });
 }
-// ============================================
 
-function fetchCockteilByName(name) {
-  const cocteils = axios(
-    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`
-  );
-  cocteils.then(resp => {
-    const drinks = resp.data.drinks;
+async function fetchCockteilByName(name) {
+  try {
+    const cocteils = await gerInfoByName(name);
+    const drinks = await cocteils.data.drinks;
     if (!drinks) {
       apologShown();
     } else {
       apologNotShown();
-      drinks.map(drink => createCardMarkup(drink));
+      drinks.map(drink => sampleCoctaileCard(drink));
       checkedBtns(
         '[data-cocktaileid]',
         '/coctailes',
@@ -54,9 +53,9 @@ function fetchCockteilByName(name) {
         { contOnDel: 'remove', ContOnAdd: 'add to' }
       );
     }
-  });
-
-  return cocteils;
+  } catch (error) {
+    console.log('error', error);
+  }
 }
 function apologNotShown() {
   titleRef.classList.remove('visually-hidden');

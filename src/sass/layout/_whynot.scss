@@ -17,11 +17,20 @@
   padding-bottom: 60px;
   border: 1px solid #fe7031;
   border-radius: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 20px; 
+  @media screen and (max-width: 480px) {
+    align-items: center;
+  }
 }
 
 .wine-name {
   margin-left: 15px;
+  @media screen and (max-width: 480px){
+   
+    font-size: 14px;
+
+
+  }
 }
 
 .why-title {
@@ -90,10 +99,14 @@
   transition-property: scale(1);
   transition-duration: 250ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  
 
   &:hover {
     transform: scale(1.1);
   }
+     @media screen and (max-width: 480px) {
+       padding-right: 15px;
+     }
     @media screen and (max-width: 820px) {
       flex-direction: column;
     }
