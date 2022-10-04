@@ -1,10 +1,9 @@
-import { cocktailsList } from './getRandomCoctails';
+import { cocktailsList } from '../MarkupSample/sampleCoctaileCard';
+import { sampleSerchByLetter } from '../MarkupSample/sampleSerchByLetter';
 import { checkedBtns } from '../servise/firebase';
 import { getInfoByLetter } from '../servise/apiData';
 
 import Notiflix from 'notiflix';
-
-const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
 const keyboardItemEl = document.querySelector('[data-action="keyboard"]');
 const titleRef = document.querySelector('.gallery__title');
@@ -50,7 +49,7 @@ async function cocktailData(letter) {
         );
         throw new Error('response');
       } else {
-        const drinkU = await cocktailMarkupList(data.drinks);
+        const drinkU = await sampleSerchByLetter(data.drinks);
         cocktailsList.innerHTML = await drinkU.join('');
         checkedBtns(
           '[data-cocktaileid]',
@@ -79,24 +78,6 @@ async function getCocktailByLetter(letter) {
   } catch (error) {
     Notiflix.Notify.failure('Ooops, error!');
   }
-}
-
-async function cocktailMarkupList(arr) {
-  return arr.map(({ strDrinkThumb, strDrink, idDrink }) => {
-    return `<li class='gallery__card'>
-
-     <img src=${strDrinkThumb} alt=${strDrink} class='gallery__card-img'>
-     <div class='gallery__card_thumb'>
-     <h3 class='gallery__card-name'>${strDrink}</h3>
-     <div class='btn__box'>
-
-     <button type='button' class='gallery__btn-load-more' data-open='open-modal-description' data-moreId='${idDrink}'>Learn more</button>
-      <button type='button' class='gallery__btn-add-to-fav' data-add='add-to-fav' data-cocktaileId='${idDrink}'>Add to</button>
-
-      </div>
-     </div>
-     </li>`;
-  });
 }
 
 function sorryText() {

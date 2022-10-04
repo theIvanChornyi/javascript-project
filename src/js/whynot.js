@@ -4,6 +4,7 @@ import Geo from '../img/flag-georgia.png';
 import Ita from '../img/flag-italy.png';
 import Spa from '../img/flag-spain.png';
 import Chi from '../img/flag-chile.png';
+import { markupCountry } from '../MarkupSample/sampleWhynot';
 
 const whyNotBtnRef = document.querySelector('.btn-why-not');
 
@@ -39,14 +40,9 @@ const choosePlace = () => {
     flag = Chi;
   }
 
-  const markup = `<div class="result-wine">
-    <img src=${flag} alt="flag" class="flag-img" />
-     <p class='wine-name' >${randomItem}</p>
-     </div>
-     `;
   const kafe = document.getElementById('kafe');
   if (kafe) {
-    kafe.innerHTML = markup;
+    kafe.innerHTML = markupCountry(flag, randomItem);
   }
 };
 

@@ -1,8 +1,11 @@
 import { mobilMenuRef } from './header';
 import { checkedBtns } from '../servise/firebase';
 import { gerInfoByName } from '../servise/apiData';
+import {
+  sampleCoctaileCard,
+  cocktailsList,
+} from '../MarkupSample/sampleCoctaileCard';
 
-import { createCardMarkup, cocktailsList } from './getRandomCoctails';
 const desktopFormRef = document.querySelector('.js-form-desktop');
 const mobilFormRef = document.querySelector('.js-form-mobil');
 const titleRef = document.querySelector('.gallery__title');
@@ -12,7 +15,6 @@ desktopFormRef.addEventListener('submit', onFormSubmit);
 mobilFormRef.addEventListener('submit', onFormSubmit);
 
 let dataFromInput = '';
-// ============================================
 function onFormSubmit(evt) {
   evt.preventDefault();
   mobilMenuRef.classList.add('is-hidden');
@@ -29,7 +31,6 @@ function onFormSubmit(evt) {
 
   titleRef.scrollIntoView({ behavior: 'smooth' });
 }
-// ============================================
 
 async function fetchCockteilByName(name) {
   try {
@@ -39,7 +40,7 @@ async function fetchCockteilByName(name) {
       apologShown();
     } else {
       apologNotShown();
-      drinks.map(drink => createCardMarkup(drink));
+      drinks.map(drink => sampleCoctaileCard(drink));
       checkedBtns(
         '[data-cocktaileid]',
         '/coctailes',

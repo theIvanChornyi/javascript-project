@@ -2,8 +2,8 @@ import { removeUserData, auth } from '../servise/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { openIngridientInfoModal } from './modalComponents';
 import { getInfoAboutIngridient } from '../servise/apiData';
+import { sampleFavIngr, preloader } from '../MarkupSample/sampleFavIngr';
 
-const preloader = document.querySelector('.preloader-fav-coc');
 const favIngridientsList = document.querySelector('.f-ing_blocks');
 
 export async function parseFavIngridients(array) {
@@ -18,7 +18,7 @@ export async function parseFavIngridients(array) {
         .filter(ingr => ingr.data.ingredients)
         .map(obj => obj.data.ingredients[0]);
       const htmlStringMarkup = responseData
-        .map(obg => getHtmlString(obg))
+        .map(obg => sampleFavIngr(obg))
         .join('');
       if (favIngridientsList) {
         favIngridientsList.innerHTML = htmlStringMarkup;
@@ -35,27 +35,6 @@ export async function parseFavIngridients(array) {
   } catch (error) {
     console.log('error', error);
   }
-}
-
-function getHtmlString({ strIngredient, strType, strABV, idIngredient }) {
-  preloader?.classList.add('visually-hidden');
-  let string = '';
-  if (strABV) {
-    string += `Vol: ${strABV}°`;
-  }
-  return `<li class="f-ing_items">
-      <div class="f-ing_item__wrapper">
-        <div>
-          <h3 class="f-ing_subtitle">${strIngredient}</h3>
-          <p class="f-ing_text">${strType ?? 'Other'}</p>
-        </div>
-          <div class="f-ing-indicator">${string} </div>
-          </div>
-          <div class="f-ing_btn">
-            <button type="button" class="f-ing_btn-add" data-open='open-ingridient-description'  data-ingridientname='${strIngredient}'>Learn More</button>
-            <button type="button" class="f-ing_btn-rem" data-remove='true' data-ingridientname='${idIngredient}'>Remove</button>
-          </div>
-        </li>`;
 }
 
 function removeFromFavIngr(e) {

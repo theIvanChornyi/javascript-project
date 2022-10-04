@@ -23,18 +23,3 @@ export function getInfoByLetter(letter) {
 export function gerInfoByName(nameCoc) {
   return axios(`${BASE_URL}search.php?s=${nameCoc}`);
 }
-
-// IngridientingridientId
-// www.thecocktaildb.com/api/json/v1/1/lookup.php?iid=552
-
-// Coctaile details
-// www.thecocktaildb.com/api/json/v1/1/lookup.php?i=11007
-
-// Ingridient by name
-// www.thecocktaildb.com/api/json/v1/1/search.php?i=vodka
-
-// Coctaile by name
-// www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita
-
-// Coctaile by letter
-// www.thecocktaildb.com/api/json/v1/1/search.php?f=a
