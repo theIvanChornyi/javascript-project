@@ -19,25 +19,8 @@ function openModal(e) {
 
 async function getIngridient(IngrdName) {
   try {
-    const createMarkup = await getData(IngrdName);
-    const DOM =
-      document.querySelector('.backdrop__cocktail') ??
-      document.querySelector('.fav-ing');
-    DOM.insertAdjacentHTML('beforeend', createMarkup);
-    clickable();
+    buildModal(IngrdName);
   } catch (error) {}
-  checkedBtns(
-    '[data-ingr]',
-    '/ingredients',
-    'ingridientname',
-    'data-ingr',
-    {
-      atrOnDel: 'remove-to-fav',
-      atrOnAdd: 'add-to-fav',
-    },
-    { contOnDel: 'Remove from favorite', ContOnAdd: 'Add to favorite' }
-  );
-  writeRemovetIngridientFunction('[data-ingr]');
 }
 
 export function closeBybackdrop(e) {
@@ -71,4 +54,25 @@ async function getData(IngrdName) {
   const request = await getInfoAboutIngridientByName(IngrdName);
   const objectData = await request.data.ingredients[0];
   return await sampleModalComponents(objectData);
+}
+
+async function buildModal(IngrdName) {
+  const createMarkup = await getData(IngrdName);
+  const DOM =
+    document.querySelector('.backdrop__cocktail') ??
+    document.querySelector('.fav-ing');
+  DOM.insertAdjacentHTML('beforeend', createMarkup);
+  checkedBtns(
+    '[data-ingr]',
+    '/ingredients',
+    'ingridientname',
+    'data-ingr',
+    {
+      atrOnDel: 'remove-to-fav',
+      atrOnAdd: 'add-to-fav',
+    },
+    { contOnDel: 'Remove from favorite', ContOnAdd: 'Add to favorite' }
+  );
+  writeRemovetIngridientFunction('[data-ingr]');
+  clickable();
 }

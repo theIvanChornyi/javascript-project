@@ -15,17 +15,6 @@ async function showModal(e) {
   if (typeOfBtn === 'open-modal-description') {
     try {
       bildPage(e, modalAnc);
-      checkedBtns(
-        '.modal__btnJS',
-        '/coctailes',
-        'cocktaileid',
-        'data-add',
-        {
-          atrOnDel: 'remove-to-fav',
-          atrOnAdd: 'add-to-fav',
-        },
-        { contOnDel: 'Remove from favorite', ContOnAdd: 'Add to favorite' }
-      );
     } catch (error) {
       console.log('error', error);
     }
@@ -61,6 +50,17 @@ async function getData(e) {
 async function bildPage(e, where) {
   const markupString = await getData(e);
   where.insertAdjacentHTML('beforeend', markupString);
+  checkedBtns(
+    '.modal__btnJS',
+    '/coctailes',
+    'cocktaileid',
+    'data-add',
+    {
+      atrOnDel: 'remove-to-fav',
+      atrOnAdd: 'add-to-fav',
+    },
+    { contOnDel: 'Remove from favorite', ContOnAdd: 'Add to favorite' }
+  );
   clicable();
 }
 
